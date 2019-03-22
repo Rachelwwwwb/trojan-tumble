@@ -1,13 +1,14 @@
 # Trojan-Tumble
 USC CSCI201 Final Project
 
-### **TODO**
+**TODO**
+========
 
 ## **Front-end**<br>
-[ ] Home page<br>
-[ ] Login page<br>
-[ ] Rank page<br>
-[ ] Store page<br>
+<span style="color:red">[ ]</span> Home page<br>
+<span style="color:red">[ ]</span> Login page<br>
+<span style="color:red">[ ]</span> Rank page<br>
+<span style="color:red">[ ]</span> Store page<br>
 <br>
 
 ## **Database**<br>
@@ -15,21 +16,21 @@ USC CSCI201 Final Project
 <br>
 
 ## **Server & Networking**<br>
-[ ] Setup AWS server, register for domain<br>
-[ ] Connect server to database<br>
+<span style="color:red">[ ]</span> Setup AWS server, register for domain<br>
+<span style="color:red">[ ]</span> Connect server to database<br>
 
 <br>
 
 ## **Back-end**<br>
-[ ] Actor base class<br>
-[ ] Player class<br>
-[ ] Platform class<br>
-[ ] Coin class<br>
-[ ] Camera class<br>
-[ ] User class<br>
-[ ] Game Shell<br>
-[ ] Install Applet viewer to run game locally<br>
-[ ] (do if possible) Integrate multiplayer interactions, show multiple players in one screen<br>
+<span style="color:red">[ ]</span> Actor base class<br>
+<span style="color:red">[ ]</span> Player class<br>
+<span style="color:red">[ ]</span> Platform class<br>
+<span style="color:red">[ ]</span> Coin class<br>
+<span style="color:red">[ ]</span> Camera class<br>
+<span style="color:red">[ ]</span> User class<br>
+<span style="color:red">[ ]</span> Game Shell<br>
+<span style="color:red">[ ]</span> Install Applet viewer to run game locally<br>
+<span style="color:red">[ ]</span> (do if possible) Integrate multiplayer interactions, show multiple players in one screen<br>
 
 <br>
 
