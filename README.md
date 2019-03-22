@@ -1,27 +1,26 @@
 # Trojan-Tumble
 USC CSCI201 Final Project
 
-**TODO**
+###**TODO**
 
-**Front-end**<br>
+##**Front-end**<br>
 [ ] Home page<br>
 [ ] Login page<br>
 [ ] Rank page<br>
 [ ] Store page<br>
 <br>
 
-**Database**<br>
+##**Database**<br>
 <br>
 <br>
 
-**Server & Networking**<br>
+##**Server & Networking**<br>
 [ ] Setup AWS server, register for domain<br>
 [ ] Connect server to database<br>
 
 <br>
 
-**Back-end**<br>
-
+##**Back-end**<br>
 [ ] Actor base class<br>
 [ ] Player class<br>
 [ ] Platform class<br>
@@ -34,5 +33,5 @@ USC CSCI201 Final Project
 
 <br>
 
-**Others**<br> 
+##**Others**<br> 
 [ ] Find images for background, characters, coins, and platforms<br>
