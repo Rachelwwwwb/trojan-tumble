@@ -4,7 +4,7 @@ USC CSCI201 Final Project
 **TODO**
 ========
 
-## **Front-end**<br>
+## **Web Pages**<br>
 [ ] Home page<br>
 [ ] Login page<br>
 [ ] Rank page<br>
@@ -21,7 +21,8 @@ USC CSCI201 Final Project
 
 <br>
 
-## **Back-end**<br>
+## **Game**<br>
+[ ] Figure out how Phaser3 works<br>
 [ ] Actor base class<br>
 [ ] Player class<br>
 [ ] Platform class<br>
@@ -29,7 +30,6 @@ USC CSCI201 Final Project
 [ ] Camera class<br>
 [ ] User class<br>
 [ ] Game Shell<br>
-[ ] Install Applet viewer to run game locally<br>
 [ ] (do if possible) Integrate multiplayer interactions, show multiple players in one screen<br>
 
 <br>
