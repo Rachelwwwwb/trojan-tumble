@@ -1,33 +1,38 @@
 # Trojan-Tumble
 USC CSCI201 Final Project
 
-***TODO***
+**TODO**
 
-*Front-end*  
-[ ] Home page  
-[ ] Login page  
-[ ] Rank page  
-[ ] Store page  
+**Front-end**<br>
+[ ] Home page<br>
+[ ] Login page<br>
+[ ] Rank page<br>
+[ ] Store page<br>
+<br>
 
-*Database*  
+**Database**<br>
+<br>
+<br>
 
+**Server & Networking**<br>
+[ ] Setup AWS server, register for domain<br>
+[ ] Connect server to database<br>
 
-*Server & Networking*  
-[ ] Setup AWS server, register for domain  
-[ ] Connect server to database  
+<br>
 
+**Back-end**<br>
 
-*Back-end*  
+[ ] Actor base class<br>
+[ ] Player class<br>
+[ ] Platform class<br>
+[ ] Coin class<br>
+[ ] Camera class<br>
+[ ] User class<br>
+[ ] Game Shell<br>
+[ ] Install Applet viewer to run game locally<br>
+[ ] (do if possible) Integrate multiplayer interactions, show multiple players in one screen<br>
 
-[ ] Actor base class  
-[ ] Player class  
-[ ] Platform class  
-[ ] Coin class  
-[ ] Camera class  
-[ ] User class  
-[ ] Game Shell  
-[ ] Install Applet viewer to run game locally  
-[ ] (do if possible) Integrate multiplayer interactions, show multiple players in one screen  
+<br>
 
-*Others*  
-[ ] Find images for background, characters, coins, and platforms  
+**Others**<br> 
+[ ] Find images for background, characters, coins, and platforms<br>
