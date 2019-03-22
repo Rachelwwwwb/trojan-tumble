@@ -15,6 +15,9 @@ USC CSCI201 Final Project
 
 ## **Database**<br>
 <br>
+[ ] Create Tables
+[ ] Connect to Login/Register/Profile pages & verify information
+[ ] Update user data from store and after games
 <br>
 
 ## **Server & Networking**<br>
