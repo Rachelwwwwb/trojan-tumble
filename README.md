@@ -9,6 +9,7 @@ USC CSCI201 Final Project
 [ ] Login page<br>
 [ ] Rank page<br>
 [ ] Store page<br>
+[ ] Register page<br>
 <br>
 
 ## **Database**<br>
@@ -23,6 +24,8 @@ USC CSCI201 Final Project
 
 ## **Game**<br>
 [ ] Figure out how Phaser3 works<br>
+[ ] Generate game frame and background<br>
+[ ] Make background scroll automatically<br>
 [ ] Actor base class<br>
 [ ] Player class<br>
 [ ] Platform class<br>
