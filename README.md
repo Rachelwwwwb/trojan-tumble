@@ -11,6 +11,7 @@ USC CSCI201 Final Project
 [ ] Store page<br>
 [ ] Register page<br>
 [ ] Profile page<br>
+[ ] Results page<br>
 <br>
 
 ## **Database**<br>
