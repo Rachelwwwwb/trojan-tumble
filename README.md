@@ -28,7 +28,7 @@ USC CSCI201 Final Project
 <br>
 
 ## **Game**<br>
-[ ] Figure out how Phaser3 works<br>
+[X] Figure out how Phaser3 works<br>
 [ ] Generate game frame and background<br>
 [ ] Make background scroll automatically<br>
 [ ] Actor base class<br>
