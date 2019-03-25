@@ -5,13 +5,13 @@ USC CSCI201 Final Project
 ========
 
 ## **Web Pages**<br>
-[ ] Home page<br> -- Gabrielle 3/29
-[ ] Login page<br> -- Gabrielle 3/29
-[ ] Rank page<br>  -- Gabrielle 3/29
-[ ] Store page<br> -- Gabrielle 3/29
-[ ] Register page<br>  -- Gabrielle 3/29
-[ ] Profile page<br>  -- Gabrielle 3/29
-[ ] Results page<br>  -- Gabrielle 3/29
+[ ] Home page -- Gabrielle 3/29 <br>
+[ ] Login page -- Gabrielle 3/29<br>
+[ ] Rank page -- Gabrielle 3/29<br>
+[ ] Store page -- Gabrielle 3/29<br>
+[ ] Register page  -- Gabrielle 3/29<br>
+[ ] Profile page -- Gabrielle 3/29<br>
+[ ] Results page -- Gabrielle 3/29<br>
 <br>
 
 ## **Database**<br>
