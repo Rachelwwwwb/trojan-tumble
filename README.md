@@ -29,15 +29,14 @@ USC CSCI201 Final Project
 
 ## **Game**<br>
 [X] Figure out how Phaser3 works<br>
-[ ] Generate game frame and background<br>
-[ ] Make background scroll automatically<br>
-[ ] Actor base class<br>
-[ ] Player class<br>
-[ ] Platform class<br>
-[ ] Coin class<br>
-[ ] Camera class<br>
-[ ] User class<br>
-[ ] Game Shell<br>
+[ ] Generate game frame and background ---Ziang 03/29<br>  
+[ ] Add camera to make background scroll automatically ---Ziang 03/29<br>
+[ ] Add platforms<br>
+[ ] Add coins at randome positions<br>
+[ ] Auto generate platforms and map at random positions<br>
+[ ] Add an HP bar/lives<br>
+[ ] Add final scene to compute score of the game<br>
+
 [ ] (do if possible) Integrate multiplayer interactions, show multiple players in one screen<br>
 
 <br>
