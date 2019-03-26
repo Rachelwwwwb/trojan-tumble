@@ -22,7 +22,7 @@ USC CSCI201 Final Project
 <br>
 
 ## **Server & Networking**<br>
-[ ] Setup AWS server, register for domain<br>
+[ ] Setup AWS server, register for domain ---Wenbei 03/29 <br>
 [ ] Connect server to database<br>
 
 <br>
@@ -32,10 +32,10 @@ USC CSCI201 Final Project
 [ ] Generate game frame and background ---Ziang 03/29<br>  
 [ ] Add camera to make background scroll automatically ---Ziang 03/29<br>
 [ ] Add platforms<br>
-[ ] Add coins at randome positions<br>
 [ ] Auto generate platforms and map at random positions<br>
-[ ] Add an HP bar/lives<br>
-[ ] Add final scene to compute score of the game<br>
+[ ] Add coins at random positions ---Wenbei 03/29<br> 
+[ ] Add an HP bar/lives ---Wenbei 03/29 <br>
+[ ] Add final scene to compute score of the game ---Wenbei 03/29 <br>
 
 [ ] (do if possible) Integrate multiplayer interactions, show multiple players in one screen<br>
 
