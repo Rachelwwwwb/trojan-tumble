@@ -22,7 +22,7 @@ USC CSCI201 Final Project
 <br>
 
 ## **Server & Networking**<br>
-[ ] Setup AWS server, register for domain ---Wenbei 03/29 <br>
+[X] Setup AWS server, register for domain ---Wenbei 03/29 <br>
 [ ] Connect server to database<br>
 
 <br>
