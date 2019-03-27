@@ -29,8 +29,8 @@ USC CSCI201 Final Project
 
 ## **Game**<br>
 [X] Figure out how Phaser3 works<br>
-[ ] Generate game frame and background ---Ziang 03/29<br>  
-[ ] Add camera to make background scroll automatically ---Ziang 03/29<br>
+[X] Generate game frame and background ---Ziang 03/29<br>  
+[X] Add camera to make background scroll automatically ---Ziang 03/29<br>
 [ ] Add platforms<br>
 [ ] Auto generate platforms and map at random positions<br>
 [ ] Add coins at random positions ---Wenbei 03/29<br> 
