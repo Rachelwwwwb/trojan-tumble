@@ -16,13 +16,13 @@ USC CSCI201 Final Project
 
 ## **Database**<br>
 <br>
-[ ] Create Tables<br>
-[ ] Connect to Login/Register/Profile pages & verify information<br>
+[ ] Create Tables -- Gabrielle 3/29 <br>
+[ ] Connect to Login/Register/Profile pages & verify information -- Gabrielle <br>
 [ ] Update user data from store and after games<br>
 <br>
 
 ## **Server & Networking**<br>
-[ ] Setup AWS server, register for domain ---Wenbei 03/29 <br>
+[X] Setup AWS server, register for domain ---Wenbei 03/29 <br>
 [ ] Connect server to database<br>
 
 <br>
@@ -42,5 +42,10 @@ USC CSCI201 Final Project
 <br>
 
 ## **Others**<br> 
-[ ] Find images for background, characters, coins, and platforms<br>
-      (I have an image for the coin and I think the dungeon image should be the background)<br>
+Find IMAGES for:<br>
+[X] background<br>
+[ ] characters<br>
+[X] coins<br>
+[ ] platforms<br>
+<br>
+[ ] Add background MUSIC<br>
