@@ -15,7 +15,6 @@ USC CSCI201 Final Project
 <br>
 
 ## **Database**<br>
-<br>
 [ ] Create Tables -- Gabrielle 3/29 <br>
 [ ] Connect to Login/Register/Profile pages & verify information -- Gabrielle <br>
 [ ] Update user data from store and after games<br>
