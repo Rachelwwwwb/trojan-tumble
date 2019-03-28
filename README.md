@@ -15,9 +15,9 @@ USC CSCI201 Final Project
 <br>
 
 ## **Database**<br>
-[ ] Create Tables -- Gabrielle 3/29 <br>
-[ ] Connect to Login/Register/Profile pages & verify information -- Gabrielle <br>
-[ ] Update user data from store and after games<br>
+[X] Create Tables -- Gabrielle 3/29 <br>
+[ ] Connect to Login/Register/Profile/Store pages & verify information -- Gabrielle <br>
+[ ] Update user data after games<br>
 <br>
 
 ## **Server & Networking**<br>
@@ -43,7 +43,7 @@ USC CSCI201 Final Project
 ## **Others**<br> 
 Find IMAGES for:<br>
 [X] background<br>
-[ ] characters<br>
+[X] characters<br>
 [X] coins<br>
 [ ] platforms<br>
 <br>
