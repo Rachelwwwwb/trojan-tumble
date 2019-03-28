@@ -42,5 +42,9 @@ USC CSCI201 Final Project
 <br>
 
 ## **Others**<br> 
-[ ] Find images for background, characters, coins, and platforms<br>
-      (I have an image for the coin and I think the dungeon image should be the background)<br>
+ Find images for:<br>
+[X] background<br>
+[ ] characters<br>
+[X] coins<br>
+[ ] platforms<br>
+     
