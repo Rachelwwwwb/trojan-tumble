@@ -42,9 +42,10 @@ USC CSCI201 Final Project
 <br>
 
 ## **Others**<br> 
- Find images for:<br>
+Find IMAGES for:<br>
 [X] background<br>
 [ ] characters<br>
 [X] coins<br>
 [ ] platforms<br>
-     
+<br>
+[ ] Add background MUSIC<br>
