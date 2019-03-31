@@ -7,16 +7,16 @@ USC CSCI201 Final Project
 ## **Web Pages**<br>
 [X] Home page -- Gabrielle 3/29 <br>
 [X] Login page & backend -- Gabrielle 3/29<br>
-[ ] Rank page -- Gabrielle <br>
-[ ] Store page -- Gabrielle <br>
+[X] Rank page -- Gabrielle <br>
+[X] Store page -- Gabrielle <br>
 [X] Register page & backend  -- Gabrielle 3/29<br>
-[ ] Profile page -- Gabrielle <br>
+[X] Profile page -- Gabrielle <br>
 [ ] Results page -- Gabrielle <br>
 <br>
 
 ## **Database**<br>
 [X] Create Tables -- Gabrielle 3/29 <br>
-[ ] Connect to Login/Register/Profile/Store pages & verify information -- Gabrielle <br>
+[X] Connect to Login/Register/Profile/Store pages & verify information -- Gabrielle <br>
 [ ] Update user data after games<br>
 <br>
 
