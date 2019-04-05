@@ -137,7 +137,7 @@
 		#trojan{
 			position:absolute;
 			height: 8%;
-			width: 5%;
+			width: 4%;
 			left: 5%;
 			top: 5%;
 			animation: move 1s infinite alternate forwards;	
@@ -180,11 +180,11 @@
 				<h1>Login</h1> 
 			</div>
 			
-			<form action="TrojanTumble" method="POST" id="userForm">
+			<form action="Login" method="POST" id="userForm">
 				<div id="form">
-					<input id="username" type="text" name="username" placeholder="Username" value="<%= username%>"><br/></div>
+					<input id="username" type="text" name="username" placeholder="Username" value="<%= username%>"><br/>
 					<br/><br/>
-					<input id="pw" type="password" name="pw" placeholder="Password" value="<%= pw%>"><br/></div><br/>
+					<input id="pw" type="password" name="pw" placeholder="Password" value="<%= pw%>"><br/><br/>
 					<div id="error" style="color: #a51a1a; font-family: 'Germania One', cursive; font-size: 26pt;"><font><%=loginError %></font></div>
 				</div>
 			  </form>
