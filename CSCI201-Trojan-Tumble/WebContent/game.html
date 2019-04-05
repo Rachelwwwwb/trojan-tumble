@@ -50,7 +50,9 @@ function preload ()
     this.load.image('ground', 'assets/platform.png');
     this.load.image('star', 'assets/star.png');
 
-    this.load.spritesheet('trojan', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
+    this.load.spritesheet('trojan', 'assets/trojan_sheet_idleSmall.png', { frameWidth: 48, frameHeight:  48});
+    this.load.spritesheet('trojanRun', 'assets/trojan_sheet_run_aligned-BASELINESmall.png', { frameWidth: 48, frameHeight:  48});
+    //this.trojanRun.anchor.setTo(0.5, 0.5);
 }
 
 function create ()
@@ -59,11 +61,13 @@ function create ()
     //this.add.image(840, 525, 'dungeon');
     
     dungeon = this.add.tileSprite(840, 487.5, 1680, 975, 'dungeon');
+    this.physics.world.setBounds(0, 0, 3000, 3000);
 
     //  The platforms group contains the ground and the 2 ledges we can jump on
-    platforms = this.physics.add.group();
-    
- 	
+
+    platforms = this.physics.add.staticGroup();
+
+
     //  Here we create the ground.
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
     //platforms.create(840, 800, 'ground').setScale(4.5).refreshBody();
@@ -109,20 +113,21 @@ function create ()
     //  Our player animations, turning, walking left and walking right.
     this.anims.create({
         key: 'left',
-        frames: this.anims.generateFrameNumbers('trojan', { start: 0, end: 3 }),
+        frames: this.anims.generateFrameNumbers('trojanRun', { start: 0, end: 3 }),
         frameRate: 10,
         repeat: -1
     });
 	
     this.anims.create({
         key: 'turn',
-        frames: [ { key: 'trojan', frame: 4 } ],
-        frameRate: 20
+        frames: this.anims.generateFrameNumbers('trojan', { start: 0, end: 3 }),
+        frameRate: 10,
+        repeat: -1
     });
     
     this.anims.create({
         key: 'right',
-        frames: this.anims.generateFrameNumbers('trojan', { start: 5, end: 8 }),
+        frames: this.anims.generateFrameNumbers('trojanRun', { start: 0, end: 3 }),
         frameRate: 10,
         repeat: -1
     });
@@ -159,13 +164,14 @@ function create ()
 function update ()
 {	
 	dungeon.tilePositionY += 2;
-	platforms.setVelocityY(-160);
+	//platforms.setVelocityY(-160);
 	
     if (cursors.left.isDown)
     {
         player.setVelocityX(-160);
 
         player.anims.play('left', true);
+		
     }
     else if (cursors.right.isDown)
     {
@@ -176,7 +182,7 @@ function update ()
     else
     {
         player.setVelocityX(0);
-        player.anims.play('turn');
+        player.anims.play('turn', true);
     }
 
     if (cursors.up.isDown && player.body.touching.down)
