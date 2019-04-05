@@ -67,6 +67,9 @@
 			text-shadow: 5px 5px black;
 		}
 		#trojan{
+			z-index: 40;
+			height: 40%;
+			width: 20%;
 			position:absolute;
 			left: 40%;
 			top: 30%;
@@ -136,7 +139,7 @@
 		<head>
 			<title>Home</title>
 			<link href="https://fonts.googleapis.com/css?family=Germania+One" rel="stylesheet">
-			<iframe width="0" height="0" src="http://youtuberepeater.com/watch?v=J55xnFE0Ibo&name=USC+Trojans+fight+song" frameborder="0" allowfullscreen></iframe>
+
 		</head>
 		<body>
 			<div id="header">
@@ -145,7 +148,7 @@
 			<img id="trojan" src="assets/trojansprite.png">
 			<img id="smoke" src="assets/smoke.png"> 
 			<img id="fire" src="assets/fire.png"> 
-			<div id="playGuest"><a href="http://localhost:8080/CSCI201-Trojan-Tumble/home.jsp" style="text-decoration:none">
+			<div id="playGuest"><a href="http://localhost:8080/CSCI201-Trojan-Tumble/game.html" style="text-decoration:none">
 				<h3>Play As Guest</h3></a></div> 
 			<div id="login"><a href="http://localhost:8080/CSCI201-Trojan-Tumble/login.jsp" style="text-decoration:none">
 				<font style="color:white">Login</font></a>        	</div>

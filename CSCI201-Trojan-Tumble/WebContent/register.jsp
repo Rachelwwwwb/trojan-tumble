@@ -127,7 +127,7 @@
 		#trojan{
 			position:absolute;
 			height: 8%;
-			width: 5%;
+			width: 4%;
 			left: 5%;
 			top: 5%;
 			animation: move 1s infinite alternate forwards;	
