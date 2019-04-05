@@ -171,6 +171,7 @@ function update ()
         player.setVelocityX(-160);
 
         player.anims.play('left', true);
+        player.flipX = true;
 		
     }
     else if (cursors.right.isDown)
@@ -178,6 +179,7 @@ function update ()
         player.setVelocityX(160);
 
         player.anims.play('right', true);
+        player.flipX = false;
     }
     else
     {
@@ -189,6 +191,14 @@ function update ()
     {
         player.setVelocityY(-600);
     }
+    
+    if (player.y <= 0)
+    	{
+    		//kill player
+    		
+    	}
+    	
+   
 }
 
 function collectStar (player, star)
