@@ -7,16 +7,16 @@ USC CSCI201 Final Project
 ## **Web Pages**<br>
 [X] Home page -- Gabrielle 3/29 <br>
 [X] Login page & backend -- Gabrielle 3/29<br>
-[ ] Rank page -- Gabrielle <br>
-[ ] Store page -- Gabrielle <br>
+[X] Rank page -- Gabrielle <br>
+[X] Store page -- Gabrielle <br>
 [X] Register page & backend  -- Gabrielle 3/29<br>
-[ ] Profile page -- Gabrielle <br>
+[X] Profile page -- Gabrielle <br>
 [ ] Results page -- Gabrielle <br>
 <br>
 
 ## **Database**<br>
 [X] Create Tables -- Gabrielle 3/29 <br>
-[ ] Connect to Login/Register/Profile/Store pages & verify information -- Gabrielle <br>
+[X] Connect to Login/Register/Profile/Store pages & verify information -- Gabrielle <br>
 [ ] Update user data after games<br>
 <br>
 
@@ -30,8 +30,10 @@ USC CSCI201 Final Project
 [X] Figure out how Phaser3 works<br>
 [X] Generate game frame and background ---Ziang 03/29<br>  
 [X] Add camera to make background scroll automatically ---Ziang 03/29<br>
-[ ] Add platforms<br>
+[X] Add platforms<br>
 [ ] Auto generate platforms and map at random positions<br>
+[ ] Add traps<br>
+[ ] Add sprites of the players<br>
 [ ] Add coins at random positions ---Wenbei 03/29<br> 
 [ ] Add an HP bar/lives ---Wenbei 03/29 <br>
 [ ] Add final scene to compute score of the game ---Wenbei 03/29 <br>
