@@ -65,7 +65,7 @@ function create ()
 
     //  The platforms group contains the ground and the 2 ledges we can jump on
 
-    platforms = this.physics.add.staticGroup();
+    platforms = this.physics.add.group();
 
 
     //  Here we create the ground.
@@ -164,7 +164,7 @@ function create ()
 function update ()
 {	
 	dungeon.tilePositionY += 2;
-	//platforms.setVelocityY(-160);
+	platforms.setVelocityY(-125);
 	
     if (cursors.left.isDown)
     {
