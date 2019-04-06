@@ -10,231 +10,276 @@
         }
     </style>
 </head>
+
 <body>
 
-<script type="text/javascript">
+	<script type="text/javascript">
 
-var config = {
-    type: Phaser.AUTO,
-    width: 1680,
-    height: 975,
-    physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: { y: 300 },
-            debug: false
-        }
-    },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
-};
-
-var player;
-
-var platforms;
-
-var cursors;
-var starCount = 0;
-
-var starText;
-
-var game = new Phaser.Game(config);
-var dungeon;
-
-function preload ()
-{
-    this.load.image('dungeon', 'assets/dungeon.png');
-    this.load.image('ground', 'assets/platform.png');
-    this.load.image('star', 'assets/star.png');
-
-    this.load.spritesheet('trojan', 'assets/trojan_sheet_idleSmall.png', { frameWidth: 48, frameHeight:  48});
-    this.load.spritesheet('trojanRun', 'assets/trojan_sheet_run_aligned-BASELINESmall.png', { frameWidth: 48, frameHeight:  48});
-    //this.trojanRun.anchor.setTo(0.5, 0.5);
-}
-
-function create ()
-{
-    //  A simple background for our game
-    //this.add.image(840, 525, 'dungeon');
-    
-    dungeon = this.add.tileSprite(840, 487.5, 1680, 975, 'dungeon');
-    this.physics.world.setBounds(0, 0, 3000, 3000);
-
-    //  The platforms group contains the ground and the 2 ledges we can jump on
-
-    platforms = this.physics.add.group();
-
-
-    //  Here we create the ground.
-    //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    //platforms.create(840, 800, 'ground').setScale(4.5).refreshBody();
-
-    //  Now let's create some ledges
-	platforms.create(600, 400, 'ground');
-    platforms.create(50, 250, 'ground');
-	platforms.create(750, 220, 'ground');
-    platforms.create(1300, 600, 'ground');
-    platforms.create(220, 1000, 'ground');
-    platforms.create(50, 1250, 'ground');
-    platforms.create(750, 1220, 'ground');
-    platforms.create(1300, 1600, 'ground');
-    platforms.create(600, 1400, 'ground');
-    platforms.create(50, 1850, 'ground');
-    platforms.create(750, 1920, 'ground');
-    platforms.create(1300, 2000, 'ground');
-    platforms.create(600, 1300, 'ground');
-    platforms.create(50, 2150, 'ground');
-    platforms.create(750, 2220, 'ground');
-    platforms.create(1300, 2600, 'ground');
-    platforms.create(600, 2400, 'ground');
-    platforms.create(50, 2250, 'ground');
-    platforms.create(750, 2420, 'ground');
-    platforms.create(1300, 2600, 'ground');
-
-    platforms.children.iterate(function (child) {
-
-        child.body.immovable = true;
-
-    });
-    
-    
-    
-    
-    // The player and its settings
-    player = this.physics.add.sprite(100, 0, 'trojan');
-
-    //  Player physics properties. Give the little guy a slight bounce.
-    player.setBounce(0.2);
-    player.setCollideWorldBounds(true);
-
-    //  Our player animations, turning, walking left and walking right.
-    this.anims.create({
-        key: 'left',
-        frames: this.anims.generateFrameNumbers('trojanRun', { start: 0, end: 3 }),
-        frameRate: 10,
-        repeat: -1
-    });
-	
-    this.anims.create({
-        key: 'turn',
-        frames: this.anims.generateFrameNumbers('trojan', { start: 0, end: 3 }),
-        frameRate: 10,
-        repeat: -1
-    });
-    
-    this.anims.create({
-        key: 'right',
-        frames: this.anims.generateFrameNumbers('trojanRun', { start: 0, end: 3 }),
-        frameRate: 10,
-        repeat: -1
-    });
-
-    //  Input Events
-    cursors = this.input.keyboard.createCursorKeys();
-
-    //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
-    stars = this.physics.add.group({
-        key: 'star',
-        repeat: 11,
-        setXY: { x: 12, y: 0, stepX: 140 }
-    });
-
-    stars.children.iterate(function (child) {
-
-        //  Give each star a slightly different bounce
-        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-
-    });
-
-    //  The score
-    starText = this.add.text(16, 16, 'Stars: 0', { fontSize: '32px', fill: 'rgb(255,255,255)' });
-
-    //  Collide the player and the stars with the platforms
-    this.physics.add.collider(player, platforms);
-    this.physics.add.collider(stars, platforms);
-
-    //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
-    this.physics.add.overlap(player, stars, collectStar, null, this);
-
-}
-
-function update ()
-{	
-	dungeon.tilePositionY += 2;
-	platforms.setVelocityY(-125);
-	
-    if (cursors.left.isDown)
-    {
-        player.setVelocityX(-160);
-
-        player.anims.play('left', true);
-        player.flipX = true;
+		var config = {
+		    type: Phaser.AUTO,
+		    width: 1680,
+		    height: 975,
+		    physics: {
+		        default: 'arcade',
+		        arcade: {
+		            gravity: { y: 300 },
+		            debug: false
+		        }
+		    },
+		    scene: {
+		        preload: preload,
+		        create: create,
+		        update: update
+		    }
+		};
 		
-    }
-    else if (cursors.right.isDown)
-    {
-        player.setVelocityX(160);
+		var player;
+		
+		var platforms;
+		
+		var cursors;
+		var starCount = 0;
+		
+		var starText;
+		
+		var game = new Phaser.Game(config);
+		var dungeon;
+		
+		function preload ()
+		{
+		    this.load.image('dungeon', 'assets/dungeon.png');
+		    this.load.image('ground', 'assets/platform.png');
+		    this.load.image('star', 'assets/star.png');
+		
+		    this.load.spritesheet('trojan', 'assets/trojan_sheet_idleSmall.png', { frameWidth: 48, frameHeight:  48});
+		    this.load.spritesheet('trojanRun', 'assets/trojan_sheet_run_aligned-BASELINESmall.png', { frameWidth: 48, frameHeight:  48});
+		    //this.trojanRun.anchor.setTo(0.5, 0.5);
+		}
+		
+		function create ()
+		{
+		    //  A simple background for our game
+		    //this.add.image(840, 525, 'dungeon');
+		    
+		    dungeon = this.add.tileSprite(840, 487.5, 1680, 975, 'dungeon');
+		    this.physics.world.setBounds(0, 0, 3000, 3000);
+		
+		    //  The platforms group contains the ground and the 2 ledges we can jump on
+		
+		    platforms = this.physics.add.group({
+		    	key: 'ground',
+		    	repeat: 250
+		    });
+		    platforms.enableBody = true;
 
-        player.anims.play('right', true);
-        player.flipX = false;
-    }
-    else
-    {
-        player.setVelocityX(0);
-        player.anims.play('turn', true);
-    }
+			
+		    //  Here we create the ground.
+		    //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
+		    //platforms.create(840, 800, 'ground').setScale(4.5).refreshBody();
+		
+		    //  Now let's create some ledges
+			/* platforms.create(600, 400, 'ground');
+		    platforms.create(50, 250, 'ground');
+			platforms.create(750, 220, 'ground');
+		    platforms.create(1300, 600, 'ground');
+		    platforms.create(220, 1000, 'ground');
+		    platforms.create(50, 1250, 'ground');
+		    platforms.create(750, 1220, 'ground');
+		    platforms.create(1300, 1600, 'ground');
+		    platforms.create(600, 1400, 'ground');
+		    platforms.create(50, 1850, 'ground');
+		    platforms.create(750, 1920, 'ground');
+		    platforms.create(1300, 2000, 'ground');
+		    platforms.create(600, 1300, 'ground');
+		    platforms.create(50, 2150, 'ground');
+		    platforms.create(750, 2220, 'ground');
+		    platforms.create(1300, 2600, 'ground');
+		    platforms.create(600, 2400, 'ground');
+		    platforms.create(50, 2250, 'ground');
+		    platforms.create(750, 2420, 'ground');
+		    platforms.create(1300, 2600, 'ground');
+			
+		    */
+		    platforms.children.iterate(function (child) {
+		
+		        child.body.immovable = true;
+		        child.active = false;
+		
+		    });
+		    
+		    
+		    
+		    
+		    // The player and its settings
+		    player = this.physics.add.sprite(100, 0, 'trojan');
+		
+		    //  Player physics properties. Give the little guy a slight bounce.
+		    player.setBounce(0.2);
+		    player.setCollideWorldBounds(true);
+		
+		    //  Our player animations, turning, walking left and walking right.
+		    this.anims.create({
+		        key: 'left',
+		        frames: this.anims.generateFrameNumbers('trojanRun', { start: 0, end: 3 }),
+		        frameRate: 10,
+		        repeat: -1
+		    });
+			
+		    this.anims.create({
+		        key: 'turn',
+		        frames: this.anims.generateFrameNumbers('trojan', { start: 0, end: 3 }),
+		        frameRate: 10,
+		        repeat: -1
+		    });
+		    
+		    this.anims.create({
+		        key: 'right',
+		        frames: this.anims.generateFrameNumbers('trojanRun', { start: 0, end: 3 }),
+		        frameRate: 10,
+		        repeat: -1
+		    });
+		
+		    //  Input Events
+		    cursors = this.input.keyboard.createCursorKeys();
+		
+		    //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
+		    stars = this.physics.add.group({
+		        key: 'star',
+		        repeat: 11,
+		        setXY: { x: 12, y: 0, stepX: 140 }
+		    });
+		
+		    stars.children.iterate(function (child) {
+		
+		        //  Give each star a slightly different bounce
+		        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+		
+		    });
+		
+		    //  The score
+		    starText = this.add.text(16, 16, 'Stars: 0', { fontSize: '32px', fill: 'rgb(255,255,255)' });
+		
+		    //  Collide the player and the stars with the platforms
+		    this.physics.add.collider(player, platforms);
+		    this.physics.add.collider(stars, platforms);
+		
+		    //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
+		    this.physics.add.overlap(player, stars, collectStar, null, this);
+			
+		    
+		    this.timer = this.time.addEvent({ 
+		    	delay: 1000, 
+		    	callback: addPlatform, 
+		    	callbackScope: this, 
+		    	loop: true
+		    });
+		}
+		
+		function update ()
+		{	
+			dungeon.tilePositionY += 2;
+			platforms.setVelocityY(-125);
+			
+			platforms.children.iterate(function (child) {
+		        if (child.y <= 0) {
+		            platforms.kill(child);
+		        }
+		    });
+			
+		    if (cursors.left.isDown)
+		    {
+		        player.setVelocityX(-160);
+		
+		        player.anims.play('left', true);
+            player.flipX = true;
 
-    if (cursors.up.isDown && player.body.touching.down)
-    {
-        player.setVelocityY(-600);
-    }
-    
-    if (player.y <= 0)
-    	{
-    		//kill player
-    		
-    	}
+        }
+        else if (cursors.right.isDown)
+        {
+            player.setVelocityX(160);
+
+            player.anims.play('right', true);
+            player.flipX = false;
+        }
+        else
+        {
+            player.setVelocityX(0);
+            player.anims.play('turn', true);
+        }
+
+        if (cursors.up.isDown && player.body.touching.down)
+        {
+            player.setVelocityY(-600);
+        }
+
+        if (player.y <= 0)
+         {
+            //kill player
+
+         }
     	
    
-}
-
-function collectStar (player, star)
-{
-    star.disableBody(true, true);
-
-    //  Add and update the score
-    starCount += 1;
-    starText.setText('Stars: ' + starCount);
-
-    if (stars.countActive(true) === 0)
-    {
-        //  A new batch of stars to collect
-        stars.children.iterate(function (child) {
-
-            child.enableBody(true, child.x, 0, true, true);
-
-        });
-    }
-}
-
-function addTile(x, y){
-	//Get a tile that is not currently on screen
-    var tile = platforms.getFirstDead();
-
-    //Reset it to the specified coordinates
-    tile.reset(x, y);
-    tile.body.velocity.y = 150; 
-    tile.body.immovable = true;
-
-    //When the tile leaves the screen, kill it
-    tile.checkWorldBounds = true;
-    tile.outOfBoundsKill = true;    
-}
-
-</script>
+		}
+		
+		function collectStar (player, star)
+		{
+		    star.disableBody(true, true);
+		
+		    //  Add and update the score
+		    starCount += 1;
+		    starText.setText('Stars: ' + starCount);
+		
+		    if (stars.countActive(true) === 0)
+		    {
+		        //  A new batch of stars to collect
+		        stars.children.iterate(function (child) {
+		
+		            child.enableBody(true, child.x, 0, true, true);
+		
+		        });
+		    }
+		}
+		
+		function addTile(x, y){
+			//Get a tile that is not currently on screen
+		    //var tile = platforms.create(x, y, 'ground');
+			var tile = platforms.getFirstDead();
+			/* console.log(tile);
+			console.log(platforms.countActive());
+			console.log(platforms.getLength()); */
+			
+			tile.active = true;
+		    //Reset it to the specified coordinates
+		    tile.enableBody(true, x, y);
+		    console.log(tile.x);
+		    tile.body.velocity.y = -125; 
+		    tile.body.immovable = true;
+		
+		    //When the tile leaves the screen, kill it
+		}
+		
+		function addPlatform(y){
+			//Work out how many tiles we need to fit across the whole screen
+		    var tilesNeeded = 10;
+			
+			if(typeof(y) == "undefined"){
+				y = 975;
+			}
+		    //Add a hole randomly somewhere
+		    var hole = Math.floor(Math.random() * (tilesNeeded - 3)) + 1;
+		
+		    //Keep creating tiles next to each other until we have an entire row
+		    //Don't add tiles where the random hole is
+		    for (var i = 0; i < tilesNeeded; i++){
+		        addTile(Math.random() * 1600, y);          
+		    }
+		}
+		
+		function killTile(tile) {
+			tile.active = false;
+		}
+	</script>
 
 </body>
+
 </html>
