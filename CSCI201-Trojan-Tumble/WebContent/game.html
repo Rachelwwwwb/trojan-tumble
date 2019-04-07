@@ -18,8 +18,8 @@
 		/* ---------- Global Variables ----------*/
 		var config = {
 		    type: Phaser.AUTO,
-		    width: 1680,
-		    height: 975,
+		    width: 1440,
+		    height: 900,
 		    physics: {
 		        default: 'arcade',
 		        arcade: {
@@ -87,10 +87,10 @@
 		function create ()
 		{
 		    //  Add background
-		    dungeon = this.add.tileSprite(840, 487.5, 1680, 975, 'dungeon');
+		    dungeon = this.add.tileSprite(720, 450, 1440, 900, 'dungeon');
 		    
 		    // Set bounds
-		    this.physics.world.setBounds(0, 0, 1680, 975);
+		    this.physics.world.setBounds(0, 0, 1440, 900);
 			
 			// Add platform group
 		    platforms = this.physics.add.group({
@@ -191,7 +191,7 @@
 		    scoreText = this.add.text(16, 50, 'Score: 0', { fontSize: '32px', fill: 'rgb(255,255,255)' });
 		    
 		    // start text
-		    startText = this.add.text(630, 300, 'Ready', { fontSize: '150px', fill: 'rgb(255, 255, 255)' });
+		    startText = this.add.text(500, 300, 'Ready', { fontSize: '150px', fill: 'rgb(255, 255, 255)' });
 		
 		    //  Collide the player and the coins with the platforms
 		    this.physics.add.collider(player, platforms);
@@ -213,7 +213,7 @@
 		    
 		    //test camera
 		    camera = this.cameras;
-		    camera.main.setBounds(0, 0, 1680, 975);
+		    camera.main.setBounds(0, 0, 1440, 900);
 		}
 		/* ---------- 				 ----------*/
 		
@@ -236,7 +236,7 @@
 			if(gameOver){
 				this.physics.pause();
 				player.setTint(0xff0000);
-				this.add.text(600, 400, 'Game Over', { fontSize: '100px', fill: 'rgb(255,255,255)' });
+				this.add.text(450, 350, 'Game Over', { fontSize: '100px', fill: 'rgb(255,255,255)' });
 				return;
 			}
 			// Move background and platforms up
@@ -306,24 +306,26 @@
 	
 	        
 	        
-	        if (player.y <= 0 && player.y >= -1)
+	        if (player.y <= 10)
 	        {
 	        	if (firstTime){
 	        		firstTime = false;
 	        	}
 	        	else {
-	            	console.log(player.y);
 	        		loseLive();
+	        		player.y = 200;
 	        	}
 
 	
 	        }
 	        
-	        if (player.y >=950) {
+	        if (player.y >=875) {
 	        	loseLive();
-            	console.log(player.y);
             	player.y = 200;
 	        }
+	        
+	        console.log(player.y);
+
 		}
 		
 		
@@ -392,10 +394,10 @@
 		    var tilesNeeded = 20;
 			
 			if(typeof(y) == "undefined"){
-				y = 975;
+				y = 900;
 			}
 			
-			var tilesNeeded = Math.ceil(1680/50);
+			var tilesNeeded = Math.ceil(1440/50);
 			
 		    //Add a hole randomly somewhere
 		    var hole = Math.floor(Math.random() * (tilesNeeded - 3)) + 1;
@@ -439,7 +441,7 @@
 					tile.active = true;
 					tile.body.velocity.y = -125; 
 				    tile.body.immovable = true;
-					tile.enableBody(true, Math.random() * 1680, 940, true, true);
+					tile.enableBody(true, Math.random() * 1440, 865, true, true);
 				}
 				
 			}
@@ -453,7 +455,7 @@
 					tile.active = true;
 					tile.body.velocity.y = -125; 
 				    tile.body.immovable = true;
-					tile.enableBody(true, Math.random() * 1680, 940, true, true);
+					tile.enableBody(true, Math.random() * 1440, 865, true, true);
 				}
 			}
 		}
