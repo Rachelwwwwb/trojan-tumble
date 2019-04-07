@@ -38,6 +38,8 @@
 		
 		var gameOver = false;
 		
+		var camera;
+		
 		var player;
 		var platforms;		
 		var cursors;
@@ -178,6 +180,11 @@
 		    	callbackScope: this, 
 		    	loop: true
 		    });  
+		    
+		    
+		    //test camera
+		    camera = this.cameras;
+		    camera.main.setBounds(0, 0, 1680, 975);
 		}
 		/* ---------- 				 ----------*/
 		
@@ -279,7 +286,8 @@
 		}
 		
  		function loseLive ()
- 		{
+ 		{	
+ 			camera.main.shake(500, 0.01);
  			if (lives <= 1){
  				heart1.alpha = 0;
  				gameOver = true;
