@@ -36,6 +36,8 @@
 		
 		var game = new Phaser.Game(config);
 		
+		var gameOver = false;
+		
 		var player;
 		var platforms;		
 		var cursors;
@@ -183,6 +185,13 @@
 		/* ---------- Update Game Status Every Frame ----------*/
 		function update ()
 		{	
+			// end game
+			if(gameOver){
+				this.physics.pause();
+				player.setTint(0xff0000);
+				this.add.text(600, 400, 'Game Over', { fontSize: '100px', fill: 'rgb(255,255,255)' });
+				return;
+			}
 			// Move background and platforms up
 			dungeon.tilePositionY += 2;
 			platforms.setVelocityY(-125);
@@ -233,7 +242,7 @@
 		    // Set player jump event
 	        if (cursors.up.isDown && player.body.touching.down)
 	        {
-	            player.setVelocityY(-350);
+	            player.setVelocityY(-450);
 	        }
 	
 	        
@@ -269,13 +278,12 @@
 		    coinText.setText('Coins: ' + coinCount);
 		}
 		
- 		function loseLive (){
-
- 			if (lives <= 0){
-				//game over
-			}
- 			else if (lives == 1){
+ 		function loseLive ()
+ 		{
+			console.log(lives);
+ 			if (lives <= 1){
  				heart1.alpha = 0;
+ 				gameOver = true;
  				//then game over
  			}
  			else if (lives == 2){
@@ -355,8 +363,7 @@
 		    
 		    //add coin
 			var coin_num = Math.ceil(Math.random() * 5);
-			
-			console.log("adding " + coin_num + " coins");
+		    
 			for(var i=0; i<coin_num; i++){
 				//randomly place these coins
 				var tile = coins.getFirstDead();
