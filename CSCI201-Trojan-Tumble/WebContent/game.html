@@ -69,7 +69,7 @@
 		    dungeon = this.add.tileSprite(840, 487.5, 1680, 975, 'dungeon');
 		    
 		    // Set bounds
-		    this.physics.world.setBounds(0, 0, 3000, 3000);
+		    this.physics.world.setBounds(0, 0, 1680, 975);
 			
 			// Add platform group
 		    platforms = this.physics.add.group({
@@ -259,7 +259,7 @@
 				y = 975;
 			}
 			
-			var tilesNeeded = Math.ceil(1600/51.2);
+			var tilesNeeded = Math.ceil(1680/50);
 			
 		    //Add a hole randomly somewhere
 		    var hole = Math.floor(Math.random() * (tilesNeeded - 3)) + 1;
