@@ -48,7 +48,7 @@
 		function preload ()
 		{
 		    this.load.image('dungeon', 'assets/dungeon.png');
-		    this.load.image('ground', 'assets/platform.png');
+		    this.load.image('ground', 'assets/ground2.png');
 		    this.load.image('coin', 'assets/coin.png');
 		
 		    this.load.spritesheet('trojan', 'assets/trojan_sheet_idleSmall.png', { frameWidth: 48, frameHeight:  48});
@@ -68,7 +68,8 @@
 		
 		    platforms = this.physics.add.group({
 		    	key: 'ground',
-		    	repeat: 250
+		    	repeat: 1000,
+		    	setScale: { x: 0.4, y: 0.3}
 		    });
 		    platforms.enableBody = true;
 
@@ -268,18 +269,47 @@
 		
 		function addPlatform(y){
 			//Work out how many tiles we need to fit across the whole screen
-		    var tilesNeeded = 2;
+		    var tilesNeeded = 20;
 			
 			if(typeof(y) == "undefined"){
 				y = 975;
 			}
+			
+			var tilesNeeded = Math.ceil(1600/51.2);
+			
 		    //Add a hole randomly somewhere
 		    var hole = Math.floor(Math.random() * (tilesNeeded - 3)) + 1;
 		
 		    //Keep creating tiles next to each other until we have an entire row
 		    //Don't add tiles where the random hole is
+		    var skipped = false;
+		    var curr_len = 0;
+		    
 		    for (var i = 0; i < tilesNeeded; i++){
-		        addTile(Math.random() * 1600, y);          
+		    	//randomly skip first part or last part
+		    	var skip_factor = Math.random();
+		    	if(skip_factor < 0.1 && !skipped && (curr_len == 0 || curr_len > 5)){
+		    		break;
+		    	}
+		    	else if(skip_factor > 0.9 && !skipped){
+		    		i += Math.floor((skip_factor - 0.9) * 3 * tilesNeeded);
+		    		skipped = true;
+		    	}
+		    	
+		    	
+		    	//randomly add holes
+		    	var hole_length = Math.floor(Math.random() * 3 + 1);
+		    	var make_hole = Math.ceil(Math.random() * 5);
+		    	if(make_hole == 3 && curr_len > 5){
+		    		i+= hole_length;
+		    		curr_len = 0;
+		    		continue;
+		    	}
+		    	addTile(i*51.2, y);
+		    	curr_len++;
+		    	/* if(i != hole && i != hole+1){
+		        	addTile(i*51.2, y);  
+		    	} */
 		    }
 		}
 		
