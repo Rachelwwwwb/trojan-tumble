@@ -52,7 +52,7 @@
 		{
 		    this.load.image('dungeon', 'assets/dungeon.png');
 		    this.load.image('ground', 'assets/ground2.png');
-		    this.load.image('coin', 'assets/coin.png');
+		    this.load.image('coin', 'assets/goldcoin.png');
 		
 		    this.load.spritesheet('trojan', 'assets/trojan_sheet_idleSmall.png', { frameWidth: 48, frameHeight:  48});
 		    this.load.spritesheet('trojanRun', 'assets/trojan_sheet_run_aligned-BASELINESmall.png', { frameWidth: 48, frameHeight:  48});
@@ -228,6 +228,8 @@
 	            //kill player
 	
 	        }
+	        
+	        console.log(coins.countActive());
     	
    
 		}
@@ -235,9 +237,9 @@
 		
 		function collectCoin (player, coin)
 		{
-		    coin.disableBody(true, true);
-		    coin.active = false;
-		
+		    //coin.disableBody(true, true);
+			coin.active = false;
+			coin.disableBody(true, true);
 		    //  Add and update the score
 		    coinCount += 1;
 		    coinText.setText('Coins: ' + coinCount);
@@ -325,7 +327,7 @@
 					tile.active = true;
 					tile.body.velocity.y = -125; 
 				    tile.body.immovable = true;
-					tile.enableBody(true, Math.random() * 1680, 940);
+					tile.enableBody(true, Math.random() * 1680, 940, true, true);
 				}
 				
 			}
