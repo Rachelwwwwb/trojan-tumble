@@ -331,7 +331,9 @@
 			
 		    //Add a hole randomly somewhere
 		    var hole = Math.floor(Math.random() * (tilesNeeded - 3)) + 1;
-		
+			
+		  	//Keep creating tiles next to each other until we have an entire row	
+		    //Don't add tiles where the random hole is
 		    var skipped = false;
 		    var curr_len = 0;
 		    
@@ -375,9 +377,12 @@
 			}
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 339444a03a0d72d1109fdc461ea9eaed598546af
+=======
+>>>>>>> 8614f84c55ec3cdef6fc8301f360bbe6d4f5dd57
 		
 	</script>
 
