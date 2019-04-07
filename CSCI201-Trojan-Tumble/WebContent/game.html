@@ -40,6 +40,10 @@
 		
 		var camera;
 		
+		var start_count_ready = 0;
+		var start_count_go = 0;
+		var startText;
+		
 		var player;
 		var platforms;		
 		var cursors;
@@ -48,6 +52,7 @@
 		var scoreCount = 0;
 		var scoreText;
 		var dungeon;
+		var coins, diamonds;
 		var lives = 5;
 		var heart1;
 		var heart2;
@@ -66,6 +71,7 @@
 		    this.load.image('dungeon', 'assets/dungeon.png');
 		    this.load.image('ground', 'assets/ground2.png');
 		    this.load.image('coin', 'assets/goldcoin.png');
+		    this.load.image('purple_diamond', 'assets/purple_diamond.png')
 			this.load.image('heart','assets/heart.png');
 
 		
@@ -124,7 +130,25 @@
 		        //  Give each coin a slightly different bounce
 		        //child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
 		        child.body.immovable = true;
-		        child.active = false
+		        child.active = false;
+		
+		    });
+		    
+		    // add diamonds, worth 50 coins
+		   	diamonds = this.physics.add.group({
+		        key: 'purple_diamond',
+		        repeat: 1,
+		        /* setXY: { x: 12, y: 0, stepX: 140 }, */
+		        setScale: { x: 0.04, y: 0.04 }
+		    });
+		    diamonds.enableBody = true;
+		
+		    diamonds.children.iterate(function (child) {
+		
+		        //  Give each coin a slightly different bounce
+		        //child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+		        child.body.immovable = true;
+		        child.active = false;
 		
 		    });
 		    
@@ -165,13 +189,18 @@
 		    
 		    // scores
 		    scoreText = this.add.text(16, 50, 'Score: 0', { fontSize: '32px', fill: 'rgb(255,255,255)' });
+		    
+		    // start text
+		    startText = this.add.text(630, 300, 'Ready', { fontSize: '150px', fill: 'rgb(255, 255, 255)' });
 		
 		    //  Collide the player and the coins with the platforms
 		    this.physics.add.collider(player, platforms);
 		    this.physics.add.collider(coins, platforms);
+		    this.physics.add.collider(diamonds, platforms);
 		
 		    //  Checks to see if the player overlaps with any of the coins, if he does call the collectCoin function
 		    this.physics.add.overlap(player, coins, collectCoin, null, this);
+		    this.physics.add.overlap(player, diamonds, collectDiamond, null, this);
 			
 		    // Loop infinitely and add platforms
 		    var timer_plat = this.time.addEvent({ 
@@ -192,6 +221,17 @@
 		/* ---------- Update Game Status Every Frame ----------*/
 		function update ()
 		{	
+			//start game
+			if(start_count_ready == 120 && start_count_go <= 180){
+				startText.setText('Go!');
+			}
+			else if(start_count_ready > 120 && start_count_go > 180){
+				startText.setText('');
+			}
+			if(start_count_ready < 200 && start_count_go < 200){
+				start_count_ready++;
+				start_count_go++;
+			}
 			// end game
 			if(gameOver){
 				this.physics.pause();
@@ -203,6 +243,7 @@
 			dungeon.tilePositionY += 2;
 			platforms.setVelocityY(-125);
 			coins.setVelocityY(-125);
+			diamonds.setVelocityY(-125);
 			
 			//  Add and update the scores
 		    scoreCount += 2;
@@ -215,9 +256,20 @@
 		        }
 		    });
 			
+			// kill coins out of bound
 			coins.children.iterate(function (child) {
 		        if (child.y <= 0) {
 		            coins.kill(child);
+		        }
+		        if (child.alive){
+		        	child.body.immovable = false;
+		        }
+		    });
+			
+			// kill diamonds out of bound
+			diamonds.children.iterate(function (child) {
+		        if (child.y <= 0) {
+		            diamonds.kill(child);
 		        }
 		        if (child.alive){
 		        	child.body.immovable = false;
@@ -283,6 +335,15 @@
 		    //  Add and update the coins
 		    coinCount += 1;
 		    coinText.setText('Coins: ' + coinCount);
+		}
+		
+		function collectDiamond (player, diamond)
+		{
+			diamond.active = false;
+			diamond.disableBody(true, true);
+			
+			coinCount += 50;
+			coinText.setText('Coins: ' + coinCount);
 		}
 		
  		function loseLive ()
@@ -381,6 +442,19 @@
 					tile.enableBody(true, Math.random() * 1680, 940, true, true);
 				}
 				
+			}
+			
+			// add diamond
+			var diamond_num = Math.floor(Math.random() * 10);
+			
+			if(diamond_num == 3){
+				var tile = diamonds.getFirstDead();
+				if(tile != null){
+					tile.active = true;
+					tile.body.velocity.y = -125; 
+				    tile.body.immovable = true;
+					tile.enableBody(true, Math.random() * 1680, 940, true, true);
+				}
 			}
 		}
 		
