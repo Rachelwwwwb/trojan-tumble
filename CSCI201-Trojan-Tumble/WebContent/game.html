@@ -36,11 +36,15 @@
 		
 		var game = new Phaser.Game(config);
 		
+		var gameOver = false;
+		
 		var player;
 		var platforms;		
 		var cursors;
 		var coinCount = 0;		
 		var coinText;
+		var scoreCount = 0;
+		var scoreText;
 		var dungeon;
 		var lives = 5;
 		var heart1;
@@ -97,11 +101,11 @@
 		    });
 		    
 		    //initalize hearts
-		    heart1 = this.add.image(40, 80, 'heart').setScale(0.35);
-		    heart2 = this.add.image(90, 80, 'heart').setScale(0.35);
-		    heart3 = this.add.image(140, 80, 'heart').setScale(0.35);
-		    heart4 = this.add.image(190, 80, 'heart').setScale(0.35);
-		    heart5 = this.add.image(240, 80, 'heart').setScale(0.35);
+		    heart1 = this.add.image(40, 120, 'heart').setScale(0.35);
+		    heart2 = this.add.image(90, 120, 'heart').setScale(0.35);
+		    heart3 = this.add.image(140, 120, 'heart').setScale(0.35);
+		    heart4 = this.add.image(190, 120, 'heart').setScale(0.35);
+		    heart5 = this.add.image(240, 120, 'heart').setScale(0.35);
 		 	   
 		    
 		    //  Some coins to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
@@ -154,8 +158,11 @@
 		    //  Input Events
 		    cursors = this.input.keyboard.createCursorKeys();
 		
-		    //  The score
+		    //  The coin
 		    coinText = this.add.text(16, 16, 'Coins: 0', { fontSize: '32px', fill: 'rgb(255,255,255)' });
+		    
+		    // scores
+		    scoreText = this.add.text(16, 50, 'Score: 0', { fontSize: '32px', fill: 'rgb(255,255,255)' });
 		
 		    //  Collide the player and the coins with the platforms
 		    this.physics.add.collider(player, platforms);
@@ -170,17 +177,7 @@
 		    	callback: addPlatform, 
 		    	callbackScope: this, 
 		    	loop: true
-		    });
-		    
-		/*  // Loop infinitely and add coins
-		    var timer_coins = this.time.addEvent({ 
-		    	delay: 2000, 
-		    	callback: addMultipleCoins, 
-		    	callbackScope: this, 
-		    	loop: true
-		    }); */
-		    
-		    
+		    });  
 		}
 		/* ---------- 				 ----------*/
 		
@@ -188,10 +185,21 @@
 		/* ---------- Update Game Status Every Frame ----------*/
 		function update ()
 		{	
+			// end game
+			if(gameOver){
+				this.physics.pause();
+				player.setTint(0xff0000);
+				this.add.text(600, 400, 'Game Over', { fontSize: '100px', fill: 'rgb(255,255,255)' });
+				return;
+			}
 			// Move background and platforms up
 			dungeon.tilePositionY += 2;
 			platforms.setVelocityY(-125);
 			coins.setVelocityY(-125);
+			
+			//  Add and update the scores
+		    scoreCount += 2;
+		    scoreText.setText('Score: ' + scoreCount);
 			
 			// kill platforms that are out of bounds
 			platforms.children.iterate(function (child) {
@@ -234,7 +242,7 @@
 		    // Set player jump event
 	        if (cursors.up.isDown && player.body.touching.down)
 	        {
-	            player.setVelocityY(-350);
+	            player.setVelocityY(-450);
 	        }
 	
 	        
@@ -256,11 +264,7 @@
 	        	loseLive();
             	console.log(player.y);
             	player.y = 1;
-
 	        }
-	        console.log(coins.countActive());
-    	
-   
 		}
 		
 		
@@ -269,18 +273,17 @@
 		    //coin.disableBody(true, true);
 			coin.active = false;
 			coin.disableBody(true, true);
-		    //  Add and update the score
+		    //  Add and update the coins
 		    coinCount += 1;
 		    coinText.setText('Coins: ' + coinCount);
 		}
 		
- 		function loseLive (){
-
- 			if (lives <= 0){
-				//game over
-			}
- 			else if (lives == 1){
+ 		function loseLive ()
+ 		{
+			console.log(lives);
+ 			if (lives <= 1){
  				heart1.alpha = 0;
+ 				gameOver = true;
  				//then game over
  			}
  			else if (lives == 2){
@@ -354,15 +357,11 @@
 		    	}
 		    	addTile(i*51.2, y);
 		    	curr_len++;
-		    	/* if(i != hole && i != hole+1){
-		        	addTile(i*51.2, y);  
-		    	} */
 		    }
 		    
 		    //add coin
 			var coin_num = Math.ceil(Math.random() * 5);
-			
-			console.log("adding " + coin_num + " coins");
+		    
 			for(var i=0; i<coin_num; i++){
 				//randomly place these coins
 				var tile = coins.getFirstDead();
@@ -375,7 +374,6 @@
 				
 			}
 		}
-
 		
 	</script>
 
