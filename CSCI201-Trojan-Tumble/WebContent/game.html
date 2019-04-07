@@ -38,9 +38,9 @@
 		var platforms;
 		
 		var cursors;
-		var starCount = 0;
+		var coinCount = 0;
 		
-		var starText;
+		var coinText;
 		
 		var game = new Phaser.Game(config);
 		var dungeon;
@@ -49,7 +49,7 @@
 		{
 		    this.load.image('dungeon', 'assets/dungeon.png');
 		    this.load.image('ground', 'assets/platform.png');
-		    this.load.image('star', 'assets/star.png');
+		    this.load.image('coin', 'assets/coin.png');
 		
 		    this.load.spritesheet('trojan', 'assets/trojan_sheet_idleSmall.png', { frameWidth: 48, frameHeight:  48});
 		    this.load.spritesheet('trojanRun', 'assets/trojan_sheet_run_aligned-BASELINESmall.png', { frameWidth: 48, frameHeight:  48});
@@ -63,7 +63,7 @@
 		    
 		    dungeon = this.add.tileSprite(840, 487.5, 1680, 975, 'dungeon');
 		    this.physics.world.setBounds(0, 0, 3000, 3000);
-		
+			
 		    //  The platforms group contains the ground and the 2 ledges we can jump on
 		
 		    platforms = this.physics.add.group({
@@ -142,29 +142,30 @@
 		    //  Input Events
 		    cursors = this.input.keyboard.createCursorKeys();
 		
-		    //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
-		    stars = this.physics.add.group({
-		        key: 'star',
+		    //  Some coins to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
+		    coins = this.physics.add.group({
+		        key: 'coin',
 		        repeat: 11,
-		        setXY: { x: 12, y: 0, stepX: 140 }
+		        setXY: { x: 12, y: 0, stepX: 140 },
+		        setScale: { x: 0.01, y: 0.01 }
 		    });
 		
-		    stars.children.iterate(function (child) {
+		    coins.children.iterate(function (child) {
 		
-		        //  Give each star a slightly different bounce
+		        //  Give each coin a slightly different bounce
 		        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
 		
 		    });
 		
 		    //  The score
-		    starText = this.add.text(16, 16, 'Stars: 0', { fontSize: '32px', fill: 'rgb(255,255,255)' });
+		    coinText = this.add.text(16, 16, 'Coins: 0', { fontSize: '32px', fill: 'rgb(255,255,255)' });
 		
-		    //  Collide the player and the stars with the platforms
+		    //  Collide the player and the coins with the platforms
 		    this.physics.add.collider(player, platforms);
-		    this.physics.add.collider(stars, platforms);
+		    this.physics.add.collider(coins, platforms);
 		
-		    //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
-		    this.physics.add.overlap(player, stars, collectStar, null, this);
+		    //  Checks to see if the player overlaps with any of the coins, if he does call the collectCoin function
+		    this.physics.add.overlap(player, coins, collectCoin, null, this);
 			
 		    
 		    this.timer = this.time.addEvent({ 
@@ -185,6 +186,12 @@
 		            platforms.kill(child);
 		        }
 		    });
+			
+			/* coins.children.iterate(function (child) {
+		        if (child.y <= 0) {
+		            coins.kill(child);
+		        }
+		    }); */
 			
 		    if (cursors.left.isDown)
 		    {
@@ -221,20 +228,21 @@
    
 		}
 		
-		function collectStar (player, star)
+		function collectCoin (player, coin)
 		{
-		    star.disableBody(true, true);
+		    coin.disableBody(true, true);
 		
 		    //  Add and update the score
-		    starCount += 1;
-		    starText.setText('Stars: ' + starCount);
+		    coinCount += 1;
+		    coinText.setText('Coins: ' + coinCount);
 		
-		    if (stars.countActive(true) === 0)
+		    if (coins.countActive(true) === 0)
 		    {
-		        //  A new batch of stars to collect
-		        stars.children.iterate(function (child) {
+		        //  A new batch of coins to collect
+		        coins.children.iterate(function (child) {
 		
-		            child.enableBody(true, child.x, 0, true, true);
+		            child.enableBody(true, child.x, 975, true, true);
+		            child.alive = true;
 		
 		        });
 		    }
@@ -260,7 +268,7 @@
 		
 		function addPlatform(y){
 			//Work out how many tiles we need to fit across the whole screen
-		    var tilesNeeded = 10;
+		    var tilesNeeded = 2;
 			
 			if(typeof(y) == "undefined"){
 				y = 975;
