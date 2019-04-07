@@ -42,6 +42,13 @@
 		var coinCount = 0;		
 		var coinText;
 		var dungeon;
+		var lives = 5;
+		var heart1;
+		var heart2;
+		var heart3;
+		var heart4;
+		var heart5;
+		var firstTime = true;
 		/* ---------- End Global Variables ----------*/
 		
 		
@@ -53,6 +60,8 @@
 		    this.load.image('dungeon', 'assets/dungeon.png');
 		    this.load.image('ground', 'assets/ground2.png');
 		    this.load.image('coin', 'assets/goldcoin.png');
+			this.load.image('heart','assets/heart.png');
+
 		
 		    this.load.spritesheet('trojan', 'assets/trojan_sheet_idleSmall.png', { frameWidth: 48, frameHeight:  48});
 		    this.load.spritesheet('trojanRun', 'assets/trojan_sheet_run_aligned-BASELINESmall.png', { frameWidth: 48, frameHeight:  48});
@@ -87,6 +96,13 @@
 		
 		    });
 		    
+		    //initalize hearts
+		    heart1 = this.add.image(40, 80, 'heart').setScale(0.35);
+		    heart2 = this.add.image(90, 80, 'heart').setScale(0.35);
+		    heart3 = this.add.image(140, 80, 'heart').setScale(0.35);
+		    heart4 = this.add.image(190, 80, 'heart').setScale(0.35);
+		    heart5 = this.add.image(240, 80, 'heart').setScale(0.35);
+		 	   
 		    
 		    //  Some coins to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
 		    coins = this.physics.add.group({
@@ -223,12 +239,25 @@
 	
 	        
 	        
-	        if (player.y <= 0)
+	        if (player.y <= 0 && player.y >= -1)
 	        {
-	            //kill player
+	        	if (firstTime){
+	        		firstTime = false;
+	        	}
+	        	else {
+	            	console.log(player.y);
+	        		loseLive();
+	        	}
+
 	
 	        }
 	        
+	        if (player.y >=950) {
+	        	loseLive();
+            	console.log(player.y);
+            	player.y = 1;
+
+	        }
 	        console.log(coins.countActive());
     	
    
@@ -256,6 +285,33 @@
 		    } */
 		}
 		
+ 		function loseLive (){
+
+ 			if (lives <= 0){
+				//game over
+			}
+ 			else if (lives == 1){
+ 				heart1.alpha = 0;
+ 				//then game over
+ 			}
+ 			else if (lives == 2){
+ 				heart2.alpha = 0;
+ 				//then game over
+ 			}
+ 			else if (lives == 3){
+ 				heart3.alpha = 0;
+ 				//then game over
+ 			}
+ 			else if (lives == 4){
+ 				heart4.alpha = 0;
+ 				//then game over
+ 			}
+ 			else if (lives == 5){
+ 				heart5.alpha = 0;
+ 				//then game over
+ 			}
+ 			lives--;
+		} 
 		
 		function addTile(x, y){
 			//Get a tile that is not currently on screen
