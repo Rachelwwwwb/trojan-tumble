@@ -84,13 +84,16 @@
 			    this.load.spritesheet('trojanRun', 'assets/trojan_sheet_run_aligned-BASELINESmall.png', { frameWidth: 48, frameHeight:  48});
 			}
 			else if(avatar == 2){ //sergeant
-				
+				this.load.spritesheet('trojan', 'assets/sergeant_sheet_idleSmall.png', { frameWidth: 48, frameHeight:  48});
+			    this.load.spritesheet('trojanRun', 'assets/sergeant_sheet_run_aligned-BASELINESmall.png', { frameWidth: 48, frameHeight:  48});
 			}
 			else if(avatar == 3){ //viking
-				
+				this.load.spritesheet('trojan', 'assets/viking_sheet_idleSmall.png', { frameWidth: 48, frameHeight:  48});
+			    this.load.spritesheet('trojanRun', 'assets/viking_sheet_run_aligned-BASELINESmall.png', { frameWidth: 48, frameHeight:  48});
 			}
 			else{ //4 - samurai
-				
+				this.load.spritesheet('trojan', 'assets/samurai_sheet_idleSmall.png', { frameWidth: 48, frameHeight:  48});
+			    this.load.spritesheet('trojanRun', 'assets/samurai_sheet_run_aligned-BASELINESmall.png', { frameWidth: 48, frameHeight:  48});
 			}
 		    
 		    //this.trojanRun.anchor.setTo(0.5, 0.5);
