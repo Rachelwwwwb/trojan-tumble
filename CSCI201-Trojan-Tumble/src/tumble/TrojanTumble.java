@@ -32,8 +32,22 @@ public class TrojanTumble extends HttpServlet {
 			int coins = (int)session.getAttribute("coins");
 			int player = (int)session.getAttribute("player");
 			updateData(id, cost, coins, player, session);
+			session.setAttribute("avatar", id);
 			
 			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/profile.jsp");
+			dispatch.forward(request, response);
+			return;
+		}
+		else if(update!= null && update.equals("results")){
+			String coinCount = request.getParameter("coins");
+			int coins = Integer.parseInt(coinCount);
+			String scoreCount = request.getParameter("score");
+			int score = Integer.parseInt(scoreCount);
+			HttpSession session = request.getSession();
+			session.setAttribute("coinsCollected", coins);
+			session.setAttribute("gameScore", score);
+			
+			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/results.jsp");
 			dispatch.forward(request, response);
 			return;
 		}

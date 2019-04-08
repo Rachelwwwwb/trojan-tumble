@@ -231,46 +231,46 @@
 
 			function checkCost(id){
 				if(avatar == id){
-					window.location.replace("http://localhost:8080/CSCI201-Trojan-Tumble/profile.jsp");
+					window.location.replace("http://trojan-tumble.us-east-2.elasticbeanstalk.com/profile.jsp");
 				}
 				if(id == 1){
-					window.location.replace("http://localhost:8080/CSCI201-Trojan-Tumble/TrojanTumble?update=true&id=1&cost=0");
+					window.location.replace("http://trojan-tumble.us-east-2.elasticbeanstalk.com/TrojanTumble?update=true&id=1&cost=0");
 				}
 				else if(id == 2){ 
 					if(<%=soldier%> != 1){	//don't have it: update profile avatar, profile coins, purchased
 						//first check if they can afford it
 						if(coins < 2500){
-							window.location.replace("http://localhost:8080/CSCI201-Trojan-Tumble/profile.jsp");
+							window.location.replace("http://trojan-tumble.us-east-2.elasticbeanstalk.com/profile.jsp");
 							return;
 						}
-						window.location.replace("http://localhost:8080/CSCI201-Trojan-Tumble/TrojanTumble?update=true&id=2&cost=2500");
+						window.location.replace("http://trojan-tumble.us-east-2.elasticbeanstalk.com/TrojanTumble?update=true&id=2&cost=2500");
 					}
 					else{	//update profile avatar
-						window.location.replace("http://localhost:8080/CSCI201-Trojan-Tumble/TrojanTumble?update=true&id=2&cost=0");
+						window.location.replace("http://trojan-tumble.us-east-2.elasticbeanstalk.com/TrojanTumble?update=true&id=2&cost=0");
 					}
 				}
 				else if(id == 3){
 					if(<%=viking%> != 1){
 						if(coins < 5000){
-							window.location.replace("http://localhost:8080/CSCI201-Trojan-Tumble/profile.jsp");
+							window.location.replace("http://trojan-tumble.us-east-2.elasticbeanstalk.com/profile.jsp");
 							return;
 						}
-						window.location.replace("http://localhost:8080/CSCI201-Trojan-Tumble/TrojanTumble?update=true&id=3&cost=5000");
+						window.location.replace("http://trojan-tumble.us-east-2.elasticbeanstalk.com/TrojanTumble?update=true&id=3&cost=5000");
 					}
 					else{
-						window.location.replace("http://localhost:8080/CSCI201-Trojan-Tumble/TrojanTumble?update=true&id=3&cost=0");
+						window.location.replace("http://trojan-tumble.us-east-2.elasticbeanstalk.com/TrojanTumble?update=true&id=3&cost=0");
 					}
 				}
 				else{
 					if(<%=samurai%> != 1){
 						if(coins < 10000){
-							window.location.replace("http://localhost:8080/CSCI201-Trojan-Tumble/profile.jsp");
+							window.location.replace("http://trojan-tumble.us-east-2.elasticbeanstalk.com/profile.jsp");
 							return;
 						}
-						window.location.replace("http://localhost:8080/CSCI201-Trojan-Tumble/TrojanTumble?update=true&id=4&cost=10000");
+						window.location.replace("http://trojan-tumble.us-east-2.elasticbeanstalk.com/TrojanTumble?update=true&id=4&cost=10000");
 					}
 					else{
-						window.location.replace("http://localhost:8080/CSCI201-Trojan-Tumble/TrojanTumble?update=true&id=4&cost=0");
+						window.location.replace("http://trojan-tumble.us-east-2.elasticbeanstalk.com/TrojanTumble?update=true&id=4&cost=0");
 					}
 				}
 			} 
@@ -321,9 +321,9 @@
 					<td align="center"><img id="coin" src="assets/goldcoin.png"> 0</td>
 				</tr>
 			</table>
-			<div id="play"><a href="http://localhost:8080/CSCI201-Trojan-Tumble/game.html" style="text-decoration:none; color:white;">
+			<div id="play"><a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/game.html" style="text-decoration:none; color:white;">
 				PLAY</a></div>
-			<div id="profile"><a href="http://localhost:8080/CSCI201-Trojan-Tumble/profile.jsp" style="text-decoration:none; color:white;">
+			<div id="profile"><a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/profile.jsp" style="text-decoration:none; color:white;">
 				Profile</a>        	</div>
 			
 			<div class="container">

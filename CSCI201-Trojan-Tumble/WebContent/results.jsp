@@ -150,14 +150,37 @@
 			height: 400px;
 			width: 330px;
 		}
+		#confetti{
+			z-index: 40;
+			position: absolute;
+			top: 29%;
+			left: 7%;
+		}
+		#confettiPNG{
+			height: 40%;
+			width: 40%;
+
+		}
+		#highScore{
+			z-index: 20;
+			position: absolute;
+			font-family: 'Germania One', cursive;
+			text-shadow: 5px 5px black;
+			font-size: 55px;
+			top: 55%;
+			left: 50%;
+			color: #a51a1a;
+		}
 </style>
 <%
 	String loggedIn = (String)session.getAttribute("loggedIn");
 	int gameScore = (int)session.getAttribute("gameScore"); 
 	int coinsCollected = (int)session.getAttribute("coinsCollected");
+	String played = "true";
+	session.setAttribute("played", played);
 	int score = 0;
 	int coins = 0;
-	int avatar = 0;
+	int avatar = 1;
 	String user = "";
 	if(loggedIn.equals("true")){
 		user = (String)session.getAttribute("user"); 
@@ -182,7 +205,7 @@
 			
 			ps = conn.prepareStatement("UPDATE Player SET coins=? WHERE username=?");
 			ps.setInt(1, coins+coinsCollected);
-			ps.setString(3, user);
+			ps.setString(2, user);
 			ps.execute();
 		}catch(SQLException sqle) {
 			System.out.println("sqle results: " + sqle.getMessage());
@@ -230,10 +253,38 @@
 				}
 			}
 			function newHighScore(){
-				<%-- if(<%=gameScore %> > <%=score %>){
+				if(<%=gameScore %> > <%=score %>){
 					//update database with new score
+					<%
+					Connection conn = null;
+					PreparedStatement ps = null;
+					ResultSet rs = null;
+					
+					try {
+						Class.forName("com.mysql.cj.jdbc.Driver");
+						conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/game?user=root&password=root");
+						ps = conn.prepareStatement("UPDATE Player SET score=? WHERE username=?");
+						ps.setInt(1, gameScore);
+						ps.setString(2, user);
+						ps.execute();
+					}catch(SQLException sqle) {
+						System.out.println("sqle results: " + sqle.getMessage());
+					}catch(ClassNotFoundException cnfe) {
+						System.out.println("cnfe results: " + cnfe.getMessage());
+					}finally {
+						try {
+							if(rs != null) rs.close();
+							if(ps != null) ps.close();
+							if(conn != null) conn.close();
+						}catch (SQLException sqle) {
+							System.out.println("Sqle: " + sqle.getMessage());
+						}
+					}
+					%>
 					//display confetti and message
-				} --%>
+					document.getElementById("confetti").style.visibility = "visible";
+					document.getElementById("highScore").style.visibility = "visible";
+				}
 			}
 			function displayButtons(){
 				document.getElementById("store").style.visibility = "visible";
@@ -244,10 +295,12 @@
 	<body onload="userData()">
 		<div id="header"></div>
 		<div id="avatar"></div>
+		<div id="confetti" style="visibility:hidden;"><img id="confettiPNG" src="assets/confetti.png"></div>
 		
 		<img id="coin" src="assets/goldcoin.png"> <div id="coins"><%=coinsCollected %></div><br>
 		<div id="collected">COINS COLLECTED</div>
-		<div id="Score">SCORE: <%=gameScore%>	</div>
+		<div id="Score">SCORE: <%=gameScore%> </div>
+		<div id="highScore" style="visibility:hidden;">NEW HIGH SCORE!</div>
 		
 		<div class="container">
 			  <div class="red flame"></div>
@@ -255,11 +308,11 @@
 			  <div class="yellow flame"></div>
 		</div>
 		
-		<div id="store"><a href="http://localhost:8080/CSCI201-Trojan-Tumble/store.jsp" style="text-decoration:none; visibility:hidden;">
+		<div id="store"><a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/store.jsp" style="text-decoration:none; visibility:hidden;">
 				<font style="color:white">Store</font></a>        	</div>
-		<div id="next"><a href="http://localhost:8080/CSCI201-Trojan-Tumble/rank.jsp" style="text-decoration:none">
-				<font style="color:white">Next</font></a>    add coins to sum in database    	</div>
-		<div id="save"><a href="http://localhost:8080/CSCI201-Trojan-Tumble/register.jsp" style="text-decoration:none">
-				<font style="color:white">Save My Game</font></a>  pass coins and score </div>
+		<div id="next"><a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/rank.jsp" style="text-decoration:none">
+				<font style="color:white">Next</font></a>    	</div>
+		<div id="save"><a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/register.jsp" style="text-decoration:none">
+				<font style="color:white">Save My Game</font></a>  </div>
 	</body>
 </html>
