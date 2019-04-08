@@ -181,6 +181,7 @@
 	int score = 0;
 	int coins = 0;
 	int avatar = 1;
+	int player = 0;
 	String user = "";
 	if(loggedIn.equals("true")){
 		user = (String)session.getAttribute("user"); 
@@ -193,11 +194,12 @@
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/game?user=root&password=root");
-			ps = conn.prepareStatement("SELECT p.coins, p.score, p.avatarID FROM Player p WHERE p.username=?");
+			ps = conn.prepareStatement("SELECT p.playerID, p.coins, p.score, p.avatarID FROM Player p WHERE p.username=?");
 			ps.setString(1, user);
 			rs = ps.executeQuery();
 		
 			while(rs.next()){
+				player = rs.getInt("playerID");
 				coins = rs.getInt("coins");
 				score = rs.getInt("score");
 				avatar = rs.getInt("avatarID");
@@ -207,6 +209,33 @@
 			ps.setInt(1, coins+coinsCollected);
 			ps.setString(2, user);
 			ps.execute();
+			
+			if(gameScore > score){	//check ranking table
+				ps = conn.prepareStatement("SELECT p.playerID, p.score FROM Player p, Ranking r WHERE p.playerID=r.playerID");
+				rs = ps.executeQuery();
+				
+				int[] scores = new int[10];
+				int[] players = new int[10];
+				int i=0;
+				while(rs.next()){
+					scores[i] = rs.getInt("score");
+					players[i] = rs.getInt("playerID");
+					i++;
+				}
+				int min = 0;
+				int j;
+				for(j=1; j<10; j++){
+					if(scores[j] < scores[min]){
+						min = j;
+					}
+				}
+				if(gameScore > scores[min]){
+					ps = conn.prepareStatement("UPDATE Ranking SET playerID=? WHERE playerID=?");
+					ps.setInt(1, player);
+					ps.setInt(2, players[j]);
+					ps.execute();
+				}
+			}
 		}catch(SQLException sqle) {
 			System.out.println("sqle results: " + sqle.getMessage());
 		}catch(ClassNotFoundException cnfe) {
