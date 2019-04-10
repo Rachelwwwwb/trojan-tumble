@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.io.IOException" import="java.sql.Connection" import="java.sql.DriverManager"
-	import="java.sql.PreparedStatement" import="java.sql.ResultSet" import="java.sql.SQLException"%>
+	import="java.sql.PreparedStatement" import="java.sql.ResultSet" import="java.sql.SQLException" import="java.sql.*"%>
 <!DOCTYPE html>
 	<html>
 	<style>
@@ -131,6 +131,15 @@
 			<script>
 				function fillRanks(){
 					<%
+					String dbName = System.getProperty("RDS_DB_NAME");  //ebdb
+					String userName = System.getProperty("RDS_USERNAME");	//user
+					String password = System.getProperty("RDS_PASSWORD");  //password
+					String hostname = System.getProperty("RDS_HOSTNAME"); //aadgh6s33rbphv.cesazkri7ef1.us-east-2.rds.amazonaws.com
+					String port = System.getProperty("RDS_PORT");	//3306
+					String jdbcUrl = "jdbc:mysql://" + hostname + ":" +
+						    port + "/" + dbName + "?user=" + userName + "&password=" + password;
+					
+					
 					String[] players = new String[10];
 					int[] score = new int[10];
 					Connection conn = null;
@@ -139,7 +148,7 @@
 					
 					try {
 						Class.forName("com.mysql.cj.jdbc.Driver");
-						conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/game?user=root&password=root");
+						conn = DriverManager.getConnection(jdbcUrl); //"jdbc:mysql://localhost:3306/game?user=root&password=root"
 						ps = conn.prepareStatement("SELECT p.username, p.score FROM Ranking r, Player p WHERE r.playerID=p.playerID ORDER BY p.score DESC");
 						rs = ps.executeQuery();
 					
