@@ -131,20 +131,7 @@
 			<script>
 				function fillRanks(){
 					<%
-					String dbName = System.getProperty("RDS_DB_NAME");  //ebdb
-					System.out.println("dbName " + dbName);
-					String userName = System.getProperty("RDS_USERNAME");	//user
-					System.out.println("userName " + userName);
-					String password = System.getProperty("RDS_PASSWORD");  //password
-					System.out.println("password " + password);
-					String hostname = System.getProperty("RDS_HOSTNAME"); //aadgh6s33rbphv.cesazkri7ef1.us-east-2.rds.amazonaws.com
-					System.out.println("hostname " + hostname);
-					String port = System.getProperty("RDS_PORT");	//3306
-					System.out.println("port " + port);
-					String jdbcUrl = "jdbc:mysql://aadgh6s33rbphv.cesazkri7ef1.us-east-2.rds.amazonaws.com:3306/ebdb?user=user&password=password";
-							/* "jdbc:mysql://" + hostname + ":" +
-						    port + "/" + dbName + "?user=" + userName + "&password=" + password; */
-					
+					String jdbcUrl = "jdbc:mysql://aagurobfnidxze.cesazkri7ef1.us-east-2.rds.amazonaws.com:3306/ebdb?user=user&password=password";					
 					
 					String[] players = new String[10];
 					int[] score = new int[10];
