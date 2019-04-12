@@ -47,6 +47,6 @@ Find IMAGES for:<br>
 [X] background<br>
 [X] characters<br>
 [X] coins<br>
-[ ] platforms<br>
+[X] platforms<br>
 <br>
 [ ] Add background MUSIC<br>

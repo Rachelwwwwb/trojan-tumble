@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.io.IOException" import="java.sql.Connection" import="java.sql.DriverManager"
-	import="java.sql.PreparedStatement" import="java.sql.ResultSet" import="java.sql.SQLException"%>
+	import="java.sql.PreparedStatement" import="java.sql.ResultSet" import="java.sql.SQLException" import="java.sql.*"%>
 <!DOCTYPE html>
 	<html>
 	<style>
@@ -131,6 +131,8 @@
 			<script>
 				function fillRanks(){
 					<%
+					String jdbcUrl = "jdbc:mysql://aagurobfnidxze.cesazkri7ef1.us-east-2.rds.amazonaws.com:3306/ebdb?user=user&password=password";					
+					
 					String[] players = new String[10];
 					int[] score = new int[10];
 					Connection conn = null;
@@ -139,10 +141,12 @@
 					
 					try {
 						Class.forName("com.mysql.cj.jdbc.Driver");
-						conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/game?user=root&password=root");
+						System.out.println("Driver loaded");
+						conn = DriverManager.getConnection(jdbcUrl); //"jdbc:mysql://localhost:3306/game?user=root&password=root"
+						System.out.println("connected");
 						ps = conn.prepareStatement("SELECT p.username, p.score FROM Ranking r, Player p WHERE r.playerID=p.playerID ORDER BY p.score DESC");
 						rs = ps.executeQuery();
-					
+						System.out.println("executed");
 						int i=0;
 						while(rs.next()) {	//iterate through all rows
 							String p = rs.getString("username");
@@ -196,14 +200,14 @@
 %>
 		</table>
 			<div id="play">
-				<a href="http://localhost:8080/CSCI201-Trojan-Tumble/game.html" style="text-decoration:none; color: white;">
+				<a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/game.html" style="text-decoration:none; color: white;">
 					PLAY </a>
 			</div>
 			<div id="profile" style="position: absolute; visibility: hidden;">
-				<a href="http://localhost:8080/CSCI201-Trojan-Tumble/profile.jsp" style="text-decoration:none; color: white;">
+				<a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/profile.jsp" style="text-decoration:none; color: white;">
 				Profile</a>        	</div>
 			<div id="store" style="position: absolute; visibility: hidden;">
-				<a href="http://localhost:8080/CSCI201-Trojan-Tumble/store.jsp" style="text-decoration:none; color: white;">
+				<a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/store.jsp" style="text-decoration:none; color: white;">
 				Store</a>        	</div>
 			<div class="container">
 			  <div class="red flame"></div>

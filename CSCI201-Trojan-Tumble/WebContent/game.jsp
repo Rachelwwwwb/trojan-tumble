@@ -1,4 +1,6 @@
-<!doctype html> 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html lang="en"> 
 <head> 
     <meta charset="UTF-8" />
@@ -10,58 +12,10 @@
         }
     </style>
 </head>
-
-<<<<<<< HEAD
-    this.load.spritesheet('trojan', 'assets/trojan_sheet_idleSmall.png', { frameWidth: 48, frameHeight:  48});
-    this.load.spritesheet('trojanRun', 'assets/trojan_sheet_run_aligned-BASELINESmall.png', { frameWidth: 48, frameHeight:  48});
-    //this.trojanRun.anchor.setTo(0.5, 0.5);
-}
-
-function create ()
-{
-    //  A simple background for our game
-    //this.add.image(840, 525, 'dungeon');
-    
-    dungeon = this.add.tileSprite(840, 487.5, 1680, 975, 'dungeon');
-    this.physics.world.setBounds(0, 0, 3000, 3000);
-
-    //  The platforms group contains the ground and the 2 ledges we can jump on
-
-    platforms = this.physics.add.group();
-
-
-    //  Here we create the ground.
-    //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    //platforms.create(840, 800, 'ground').setScale(4.5).refreshBody();
-
-    //  Now let's create some ledges
-	platforms.create(600, 400, 'ground');
-    platforms.create(50, 350, 'ground');
-	platforms.create(750, 220, 'ground');
-    platforms.create(1300, 600, 'ground');
-    platforms.create(220, 1000, 'ground');
-    platforms.create(50, 1250, 'ground');
-    platforms.create(750, 1220, 'ground');
-    platforms.create(1300, 1600, 'ground');
-    platforms.create(600, 1400, 'ground');
-    platforms.create(50, 1850, 'ground');
-    platforms.create(750, 1920, 'ground');
-    platforms.create(1300, 2000, 'ground');
-    platforms.create(600, 1300, 'ground');
-    platforms.create(50, 2150, 'ground');
-    platforms.create(750, 2220, 'ground');
-    platforms.create(1300, 2600, 'ground');
-    platforms.create(600, 2400, 'ground');
-    platforms.create(50, 2250, 'ground');
-    platforms.create(750, 2420, 'ground');
-    platforms.create(1300, 2600, 'ground');
-
-    platforms.children.iterate(function (child) {
-
-        child.body.immovable = true;
-=======
+<%
+	int avatar = (int)session.getAttribute("avatar");
+%>
 <body>
->>>>>>> 5118234f6ece45b8217056f37f7575cfd967836f
 
 	<script type="text/javascript">
 		
@@ -94,6 +48,7 @@ function create ()
 		var start_count_go = 0;
 		var startText;
 		
+		var avatar  = <%=avatar%>;
 		var player;
 		var platforms;		
 		var cursors;
@@ -124,9 +79,23 @@ function create ()
 		    this.load.image('purple_diamond', 'assets/purple_diamond.png')
 			this.load.image('heart','assets/heart.png');
 
-		
-		    this.load.spritesheet('trojan', 'assets/trojan_sheet_idleSmall.png', { frameWidth: 48, frameHeight:  48});
-		    this.load.spritesheet('trojanRun', 'assets/trojan_sheet_run_aligned-BASELINESmall.png', { frameWidth: 48, frameHeight:  48});
+			if(avatar == 1){ //trojan
+				this.load.spritesheet('trojan', 'assets/trojan_sheet_idleSmall.png', { frameWidth: 48, frameHeight:  48});
+			    this.load.spritesheet('trojanRun', 'assets/trojan_sheet_run_aligned-BASELINESmall.png', { frameWidth: 48, frameHeight:  48});
+			}
+			else if(avatar == 2){ //sergeant
+				this.load.spritesheet('trojan', 'assets/sergeant_sheet_idleSmall.png', { frameWidth: 48, frameHeight:  48});
+			    this.load.spritesheet('trojanRun', 'assets/sergeant_sheet_run_aligned-BASELINESmall.png', { frameWidth: 48, frameHeight:  48});
+			}
+			else if(avatar == 3){ //viking
+				this.load.spritesheet('trojan', 'assets/viking_sheet_idleSmall.png', { frameWidth: 48, frameHeight:  48});
+			    this.load.spritesheet('trojanRun', 'assets/viking_sheet_run_aligned-BASELINESmall.png', { frameWidth: 48, frameHeight:  48});
+			}
+			else{ //4 - samurai
+				this.load.spritesheet('trojan', 'assets/samurai_sheet_idleSmall.png', { frameWidth: 48, frameHeight:  48});
+			    this.load.spritesheet('trojanRun', 'assets/samurai_sheet_run_aligned-BASELINESmall.png', { frameWidth: 48, frameHeight:  48});
+			}
+		    
 		    //this.trojanRun.anchor.setTo(0.5, 0.5);
 		}
 		/* ---------- 			----------*/
@@ -287,6 +256,11 @@ function create ()
 				this.physics.pause();
 				player.setTint(0xff0000);
 				this.add.text(450, 350, 'Game Over', { fontSize: '100px', fill: 'rgb(255,255,255)' });
+				var urlParams = new URLSearchParams(window.location.search);
+				urlParams.append('coins', coinCount);
+				urlParams.append('score', scoreCount);
+				var url = "http://trojan-tumble.us-east-2.elasticbeanstalk.com/TrojanTumble?update=results&" + urlParams;
+				window.location.replace(url);
 				return;
 			}
 			// Move background and platforms up
@@ -378,70 +352,6 @@ function create ()
 
 		}
 		
-<<<<<<< HEAD
-    }
-    else if (cursors.right.isDown)
-    {
-        player.setVelocityX(160);
-
-        player.anims.play('right', true);
-        player.flipX = false;
-    }
-    else
-    {
-        player.setVelocityX(0);
-        player.anims.play('turn', true);
-    }
-
-    if (cursors.up.isDown && player.body.touching.down)
-    {
-        player.setVelocityY(-600);
-    }
-    
-    if (player.y <= 0)
-    {
-    	//kill player
-    		
-    }
-    	
-   
-}
-
-function collectStar (player, star)
-{
-    star.disableBody(true, true);
-
-    //  Add and update the score
-    starCount += 1;
-    starText.setText('Stars: ' + starCount);
-
-    if (stars.countActive(true) === 0)
-    {
-        //  A new batch of stars to collect
-        stars.children.iterate(function (child) {
-
-            child.enableBody(true, child.x, 0, true, true);
-
-        });
-    }
-}
-
-function addTile(x, y){
-	//Get a tile that is not currently on screen
-    var tile = platforms.getFirstDead();
-
-    //Reset it to the specified coordinates
-    tile.reset(x, y);
-    tile.body.velocity.y = 150; 
-    tile.body.immovable = true;
-
-    //When the tile leaves the screen, kill it
-    tile.checkWorldBounds = true;
-    tile.outOfBoundsKill = true;    
-}
-
-</script>
-=======
 		
 		function collectCoin (player, coin)
 		{
@@ -574,7 +484,6 @@ function addTile(x, y){
 			}
 		}
 	</script>
->>>>>>> 5118234f6ece45b8217056f37f7575cfd967836f
 
 </body>
 

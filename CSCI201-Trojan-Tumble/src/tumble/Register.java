@@ -65,11 +65,11 @@ public class Register extends HttpServlet {
 		ResultSet rs = null;
 		int score = 0;
 		int coins = 0;
-//		int temp = (int)session.getAttribute("score");
-//		int coins = (int)session.getAttribute("coins");
-//		if(temp) {
-//			score = temp;
-//		}
+		String played = (String)session.getAttribute("played");
+		if(played.equals("true")) {
+			score = (int)session.getAttribute("gameScore");
+			coins = (int)session.getAttribute("coinsCollected");
+		}
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -122,7 +122,9 @@ public class Register extends HttpServlet {
 			dispatch.forward(request, response);
 			return;
 		}catch(SQLException sqle) {
+			System.out.println("sqle: " + sqle.getMessage());
 		}catch(ClassNotFoundException cnfe) {
+			System.out.println("cnfe: " + cnfe.getMessage());
 		}finally {
 			try {
 				if(rs != null) rs.close();
