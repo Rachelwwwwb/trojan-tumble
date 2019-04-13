@@ -131,7 +131,7 @@
 			<script>
 				function fillRanks(){
 					<%
-					String jdbcUrl = "jdbc:mysql://aagurobfnidxze.cesazkri7ef1.us-east-2.rds.amazonaws.com:3306/ebdb?user=user&password=password";					
+					String jdbcUrl = "jdbc:mysql://aagurobfnidxze.cesazkri7ef1.us-east-2.rds.amazonaws.com:3306/game?user=user&password=password";					
 					
 					String[] players = new String[10];
 					int[] score = new int[10];

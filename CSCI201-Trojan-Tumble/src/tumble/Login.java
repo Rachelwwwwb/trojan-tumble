@@ -48,9 +48,12 @@ public class Login extends HttpServlet {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		
+		String jdbcUrl = "jdbc:mysql://aagurobfnidxze.cesazkri7ef1.us-east-2.rds.amazonaws.com:3306/game?user=user&password=password";	
+		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/game?user=root&password=root");
+			conn = DriverManager.getConnection(jdbcUrl);
 			ps = conn.prepareStatement("SELECT * FROM Player WHERE username=? AND password=?");
 			ps.setString(1, servUsername);
 			ps.setString(2, servPW);

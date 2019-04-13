@@ -66,17 +66,24 @@ public class Register extends HttpServlet {
 		int score = 0;
 		int coins = 0;
 		String played = (String)session.getAttribute("played");
-		if(played.equals("true")) {
-			score = (int)session.getAttribute("gameScore");
-			coins = (int)session.getAttribute("coinsCollected");
+		
+		if(played != null) {
+			if(played.equals("true")) {
+				score = (int)session.getAttribute("gameScore");
+				coins = (int)session.getAttribute("coinsCollected");
+			}
 		}
+		
+		String jdbcUrl = "jdbc:mysql://aagurobfnidxze.cesazkri7ef1.us-east-2.rds.amazonaws.com:3306/game?user=user&password=password";					
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/game?user=root&password=root");
+			System.out.println("Driver loaded");
+			conn = DriverManager.getConnection(jdbcUrl);
 			ps = conn.prepareStatement("SELECT * FROM Player WHERE username=?");
 			ps.setString(1, servUsername);
 			rs = ps.executeQuery();
+			System.out.println("executed");
 			
 			boolean foundUser = false;
 			while(rs.next()) {	//iterate through all rows
@@ -120,7 +127,8 @@ public class Register extends HttpServlet {
 			session.setAttribute("user", user);
 			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/profile.jsp");
 			dispatch.forward(request, response);
-			return;
+			
+			//return;
 		}catch(SQLException sqle) {
 			System.out.println("sqle: " + sqle.getMessage());
 		}catch(ClassNotFoundException cnfe) {

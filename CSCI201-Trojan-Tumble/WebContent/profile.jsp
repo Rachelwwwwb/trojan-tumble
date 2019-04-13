@@ -223,7 +223,7 @@
 				<font style="color:white">Store</font></a>        	</div>
 		<div id="rank"><a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/rank.jsp" style="text-decoration:none">
 				<font style="color:white">Rank</font></a>        	</div>
-		<div id="play"><a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/game.html" style="text-decoration:none">
+		<div id="play"><a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/game.jsp" style="text-decoration:none">
 				<font style="color:white">PLAY</font></a>        	</div>
 	</body>
 </html>
