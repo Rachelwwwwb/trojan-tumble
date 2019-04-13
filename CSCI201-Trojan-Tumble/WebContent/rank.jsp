@@ -200,7 +200,7 @@
 %>
 		</table>
 			<div id="play">
-				<a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/game.html" style="text-decoration:none; color: white;">
+				<a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/game.jsp" style="text-decoration:none; color: white;">
 					PLAY </a>
 			</div>
 			<div id="profile" style="position: absolute; visibility: hidden;">

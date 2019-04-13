@@ -158,7 +158,7 @@
 	
 	try {
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/game?user=root&password=root");
+		conn = DriverManager.getConnection("jdbc:mysql://aagurobfnidxze.cesazkri7ef1.us-east-2.rds.amazonaws.com:3306/game?user=user&password=password");
 		ps = conn.prepareStatement("SELECT p.coins, p.score, p.avatarID FROM Player p WHERE p.username=?");
 		ps.setString(1, user);
 		rs = ps.executeQuery();

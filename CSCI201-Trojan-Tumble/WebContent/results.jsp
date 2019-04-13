@@ -193,7 +193,7 @@
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/game?user=root&password=root");
+			conn = DriverManager.getConnection("jdbc:mysql://aagurobfnidxze.cesazkri7ef1.us-east-2.rds.amazonaws.com:3306/game?user=user&password=password");
 			ps = conn.prepareStatement("SELECT p.playerID, p.coins, p.score, p.avatarID FROM Player p WHERE p.username=?");
 			ps.setString(1, user);
 			rs = ps.executeQuery();
@@ -272,7 +272,7 @@
 					document.getElementById("avatar").innerHTML = "<img id='avatar' src='assets/samuraisprite.png'>";
 				}
 				//if logged in 
-				if(<%=loggedIn%> == "true"){
+				if(<%=loggedIn%> == true){
 					document.getElementById("header").innerHTML = "<h1>" + <%=user.toUpperCase()%> + "</h1>";
 					newHighScore();
 					displayButtons();
@@ -291,7 +291,7 @@
 					
 					try {
 						Class.forName("com.mysql.cj.jdbc.Driver");
-						conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/game?user=root&password=root");
+						conn = DriverManager.getConnection("jdbc:mysql://aagurobfnidxze.cesazkri7ef1.us-east-2.rds.amazonaws.com:3306/game?user=user&password=password");
 						ps = conn.prepareStatement("UPDATE Player SET score=? WHERE username=?");
 						ps.setInt(1, gameScore);
 						ps.setString(2, user);
