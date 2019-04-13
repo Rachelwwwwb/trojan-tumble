@@ -273,7 +273,7 @@
 				}
 				//if logged in 
 				if(<%=loggedIn%> == true){
-					document.getElementById("header").innerHTML = "<h1>" + <%=user.toUpperCase()%> + "</h1>";
+					document.getElementById("header").innerHTML = "<h1>" + "<%=user.toUpperCase()%>" + "</h1>";
 					newHighScore();
 					displayButtons();
 				}
