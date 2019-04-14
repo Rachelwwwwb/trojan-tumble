@@ -232,7 +232,7 @@
 				if(gameScore > scores[min]){
 					ps = conn.prepareStatement("UPDATE Ranking SET playerID=? WHERE playerID=?");
 					ps.setInt(1, player);
-					ps.setInt(2, players[j]);
+					ps.setInt(2, players[min]);
 					ps.execute();
 				}
 			}
