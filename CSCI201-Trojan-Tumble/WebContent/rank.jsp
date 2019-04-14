@@ -123,6 +123,8 @@
 	</style>
 <%	
 	String loggedIn = (String)session.getAttribute("loggedIn");
+
+	int rankCount = 0;
 %>
 		<head>
 			<meta charset="UTF-8">
@@ -149,11 +151,15 @@
 						System.out.println("executed");
 						int i=0;
 						while(rs.next()) {	//iterate through all rows
+							if(i > 9){
+								break;
+							}
 							String p = rs.getString("username");
 							int s = rs.getInt("score");
 							players[i] = p.toUpperCase();
 							score[i] = s;
 							i++;
+							rankCount++;
 						} 
 					}catch(SQLException sqle) {
 						System.out.println("sqle: " + sqle.getMessage());
@@ -189,7 +195,7 @@
 			
 			<table id="ranks" style="width:60%; margin: 10%; border-radius: 15px; left:10%;">
 <%
-			for(int i=1; i<=10; i++){
+			for(int i=1; i<=rankCount; i++){
 				out.println("<tr>");
 				out.println("<td align='center' width='100px'>" + i + "</td>");
 				out.println("<td width='200px'></td>");

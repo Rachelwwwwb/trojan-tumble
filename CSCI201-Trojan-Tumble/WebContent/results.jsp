@@ -211,15 +211,26 @@
 			ps.execute();
 			
 			if(gameScore > score){	//check ranking table
-				ps = conn.prepareStatement("SELECT p.playerID, p.score FROM Player p, Ranking r WHERE p.playerID=r.playerID");
+				ps = conn.prepareStatement("SELECT p.playerID, p.score FROM Player p, Ranking r WHERE p.playerID=r.playerID ORDER BY p.score DESC");
 				rs = ps.executeQuery();
 				
-				int[] scores = new int[11];
-				int[] players = new int[11];
+				/*
+				ps = conn.prepareStatement("UPDATE Player SET score=? WHERE username=?");
+				ps.setInt(1, gameScore);
+				ps.setString(2, user);
+				ps.execute();*/
+				
+				boolean onRanking = false;
+				
+				int[] scores = new int[10];
+				int[] players = new int[10];
 				int i=0;
 				while(rs.next()){
 					scores[i] = rs.getInt("score");
 					players[i] = rs.getInt("playerID");
+					if(players[i] == player){
+						onRanking = true;
+					}
 					i++;
 				}
 				int min = 0;
@@ -230,10 +241,18 @@
 					}
 				}
 				if(gameScore > scores[min]){
-					ps = conn.prepareStatement("UPDATE Ranking SET playerID=? WHERE playerID=?");
-					ps.setInt(1, player);
-					ps.setInt(2, players[min]);
-					ps.execute();
+					if(!onRanking){
+						ps = conn.prepareStatement("UPDATE Ranking SET playerID=? WHERE playerID=?");
+						ps.setInt(1, player);
+						ps.setInt(2, players[min]);
+						ps.execute();
+					}
+					else{//update score
+						ps = conn.prepareStatement("UPDATE Ranking SET score=? WHERE playerID=?");
+						ps.setInt(1, gameScore);
+						ps.setInt(2, player);
+						ps.execute();
+					}
 				}
 			}
 		}catch(SQLException sqle) {
