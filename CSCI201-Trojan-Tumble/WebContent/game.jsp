@@ -13,7 +13,7 @@
     </style>
 </head>
 <%
-	avatar = (int)session.getAttribute("avatar");
+	int avatar = (int)session.getAttribute("avatar");
 %>
 <body>
 
