@@ -214,8 +214,8 @@
 				ps = conn.prepareStatement("SELECT p.playerID, p.score FROM Player p, Ranking r WHERE p.playerID=r.playerID");
 				rs = ps.executeQuery();
 				
-				int[] scores = new int[10];
-				int[] players = new int[10];
+				int[] scores = new int[11];
+				int[] players = new int[11];
 				int i=0;
 				while(rs.next()){
 					scores[i] = rs.getInt("score");
@@ -282,6 +282,8 @@
 				}
 			}
 			function newHighScore(){
+				console.log("newHighScore");
+				console.log("scores: " + <%=gameScore %> + " " + <%=score %>);
 				if(<%=gameScore %> > <%=score %>){
 					//update database with new score
 					<%
@@ -316,6 +318,7 @@
 				}
 			}
 			function displayButtons(){
+				console.log("displayButtons");
 				document.getElementById("store").style.visibility = "visible";
 				document.getElementById("save").style.visibility = "hidden";
 			}
