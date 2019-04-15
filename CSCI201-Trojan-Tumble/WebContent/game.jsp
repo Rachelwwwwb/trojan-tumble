@@ -57,7 +57,7 @@
 		var scoreCount = 0;
 		var scoreText;
 		var dungeon;
-		var coins, diamonds;
+		var coins, diamonds,rubys;
 		var lives = 5;
 		var heart1;
 		var heart2;
@@ -78,6 +78,7 @@
 		    this.load.image('coin', 'assets/goldcoin.png');
 		    this.load.image('purple_diamond', 'assets/purple_diamond.png')
 			this.load.image('heart','assets/heart.png');
+		    this.load.image('ruby','assets/ruby.png')
 
 			if(avatar == 1){ //trojan
 				this.load.spritesheet('trojan', 'assets/trojan_sheet_idleSmall.png', { frameWidth: 48, frameHeight:  48});
@@ -171,6 +172,18 @@
 		
 		    });
 		    
+		    //add ruby to get extra lives
+		    rubys = this.physics.add.group({
+		    	key:'ruby',
+		    	repeat:1,
+		        setScale: { x: 1, y: 1 }
+
+		    });
+		    rubys.enableBody = true;
+		    rubys.children.iterate(function (child) {
+				child.body.immovable = true;
+		        child.active = false;
+		    });
 		    
 		    // The player and its settings
 		    player = this.physics.add.sprite(100, 0, 'trojan');
@@ -216,11 +229,14 @@
 		    this.physics.add.collider(player, platforms);
 		    this.physics.add.collider(coins, platforms);
 		    this.physics.add.collider(diamonds, platforms);
+		    this.physics.add.collider(rubys, platforms);
+
 		
 		    //  Checks to see if the player overlaps with any of the coins, if he does call the collectCoin function
 		    this.physics.add.overlap(player, coins, collectCoin, null, this);
 		    this.physics.add.overlap(player, diamonds, collectDiamond, null, this);
-			
+		    this.physics.add.overlap(player, rubys, collectRuby, null, this);
+
 		    // Loop infinitely and add platforms
 		    var timer_plat = this.time.addEvent({ 
 		    	delay: 1000, 
@@ -268,6 +284,8 @@
 			platforms.setVelocityY(-125);
 			coins.setVelocityY(-125);
 			diamonds.setVelocityY(-125);
+			rubys.setVelocityY(-125);
+
 			
 			//  Add and update the scores
 		    scoreCount += 2;
@@ -294,6 +312,15 @@
 			diamonds.children.iterate(function (child) {
 		        if (child.y <= 0) {
 		            diamonds.kill(child);
+		        }
+		        if (child.alive){
+		        	child.body.immovable = false;
+		        }
+		    });
+			
+			rubys.children.iterate(function (child) {
+		        if (child.y <= 0) {
+		            rubys.kill(child);
 		        }
 		        if (child.alive){
 		        	child.body.immovable = false;
@@ -347,9 +374,6 @@
 	        	loseLive();
             	player.y = 200;
 	        }
-	        
-	        console.log(player.y);
-
 		}
 		
 		
@@ -372,32 +396,53 @@
 			coinText.setText('Coins: ' + coinCount);
 		}
 		
+		function collectRuby (player, ruby){
+			ruby.active = false;
+			ruby.disableBody(true,true);
+			
+			addLive();
+		}
+		
  		function loseLive ()
  		{	
  			camera.main.shake(500, 0.01);
  			if (lives <= 1){
  				heart1.alpha = 0;
  				gameOver = true;
- 				//then game over
  			}
  			else if (lives == 2){
  				heart2.alpha = 0;
- 				//then game over
  			}
  			else if (lives == 3){
  				heart3.alpha = 0;
- 				//then game over
  			}
  			else if (lives == 4){
  				heart4.alpha = 0;
- 				//then game over
  			}
  			else if (lives == 5){
  				heart5.alpha = 0;
- 				//then game over
  			}
  			lives--;
 		} 
+ 		
+ 		function addLive(){
+ 			if (lives == 1){
+ 				heart2.alpha = 1;
+ 	 			lives ++;
+ 			}
+ 			else if (lives == 2){
+ 				heart3.alpha = 1;
+ 	 			lives ++;
+ 			}
+ 			else if (lives == 3){
+ 				heart4.alpha = 1;
+ 	 			lives ++;
+ 			}
+ 			else if (lives == 4){
+ 				heart5.alpha = 1;
+ 	 			lives ++;
+ 			}
+ 		}
 		
 		function addTile(x, y){
 			//Get a tile that is not currently on screen
@@ -475,6 +520,19 @@
 			
 			if(diamond_num == 3){
 				var tile = diamonds.getFirstDead();
+				if(tile != null){
+					tile.active = true;
+					tile.body.velocity.y = -125; 
+				    tile.body.immovable = true;
+					tile.enableBody(true, Math.random() * 1440, 900, true, true);
+				}
+			}
+			
+			//add ruby
+			var ruby_num = Math.floor(Math.random() * 10);
+			
+			if(ruby_num == 3){
+				var tile = rubys.getFirstDead();
 				if(tile != null){
 					tile.active = true;
 					tile.body.velocity.y = -125; 
