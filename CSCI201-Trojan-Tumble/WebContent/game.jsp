@@ -79,7 +79,10 @@
 		    this.load.image('purple_diamond', 'assets/purple_diamond.png')
 			this.load.image('heart','assets/heart.png');
 		    this.load.image('ruby','assets/ruby.png')
-
+			
+		    //audio
+		    this.load.audio('music', 'assets/fightsong.mp3')
+		    
 			if(avatar == 1){ //trojan
 				this.load.spritesheet('trojan', 'assets/trojan_sheet_idleSmall.png', { frameWidth: 48, frameHeight:  48});
 			    this.load.spritesheet('trojanRun', 'assets/trojan_sheet_run_aligned-BASELINESmall.png', { frameWidth: 48, frameHeight:  48});
@@ -111,6 +114,10 @@
 		    
 		    // Set bounds
 		    this.physics.world.setBounds(0, 0, 1440, 900);
+		    
+		    //music
+		    music = this.sound.add('music');
+		    music.play();
 			
 			// Add platform group
 		    platforms = this.physics.add.group({
