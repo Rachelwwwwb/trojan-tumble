@@ -1,6 +1,8 @@
 package tumble;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -44,7 +46,27 @@ public class Login extends HttpServlet {
 			dispatch.forward(request, response);
 			return;
 		}
-
+		//hash the password
+		//hashing the password here
+		String passwordToHash = servPW;
+		String generatedPassword = null;
+		try {
+		    MessageDigest md = MessageDigest.getInstance("MD5");
+	        md.update(passwordToHash.getBytes());
+	        byte[] bytes = md.digest();
+	        StringBuilder sb = new StringBuilder();
+	        for(int i=0; i< bytes.length ;i++)
+	            {
+	                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+	            }
+	            generatedPassword = sb.toString();
+	            servPW = generatedPassword;
+	        }
+	        catch (NoSuchAlgorithmException e)
+	        {
+	            e.printStackTrace();
+	        }
+						
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
