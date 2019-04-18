@@ -284,6 +284,7 @@
 				urlParams.append('score', scoreCount);
 				var url = "http://trojan-tumble.us-east-2.elasticbeanstalk.com/TrojanTumble?update=results&" + urlParams;
 				window.location.replace(url);
+				game.destroy();
 				return;
 			}
 			// Move background and platforms up
