@@ -73,6 +73,5 @@ INSERT INTO Purchased(playerID, hasSoldier, hasViking, hasSamurai)
             
 CREATE TABLE Threads(
 	threadID INT(11) PRIMARY KEY AUTO_INCREMENT,
-    playerID INT(11) NOT NULL,
-    FOREIGN KEY (playerID) REFERENCES Player(playerID)
+    username VARCHAR(40) NOT NULL
 );
