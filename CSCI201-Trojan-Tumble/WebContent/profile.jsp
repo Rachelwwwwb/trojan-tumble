@@ -219,11 +219,11 @@
 			  <div class="yellow flame"></div>
 		</div>
 		
-		<div id="store"><a href="http://localhost:8080/CSCI201-Trojan-Tumble/store.jsp" style="text-decoration:none">
+		<div id="store"><a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/store.jsp" style="text-decoration:none">
 				<font style="color:white">Store</font></a>        	</div>
-		<div id="rank"><a href="http://localhost:8080/CSCI201-Trojan-Tumble/rank.jsp" style="text-decoration:none">
+		<div id="rank"><a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/rank.jsp" style="text-decoration:none">
 				<font style="color:white">Rank</font></a>        	</div>
-		<div id="play"><a href="http://localhost:8080/CSCI201-Trojan-Tumble/game.jsp" style="text-decoration:none">
+		<div id="play"><a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/game.jsp" style="text-decoration:none">
 				<font style="color:white">PLAY</font></a>        	</div>
 	</body>
 </html>

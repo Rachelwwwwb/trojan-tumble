@@ -333,11 +333,11 @@
 			  <div class="yellow flame"></div>
 		</div>
 		
-		<div id="store"><a href="http://localhost:8080/CSCI201-Trojan-Tumble/store.jsp" style="text-decoration:none; visibility:hidden;">
+		<div id="store"><a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/store.jsp" style="text-decoration:none; visibility:hidden;">
 				<font style="color:white">Store</font></a>        	</div>
-		<div id="next"><a href="http://localhost:8080/CSCI201-Trojan-Tumble/rank.jsp" style="text-decoration:none">
+		<div id="next"><a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/rank.jsp" style="text-decoration:none">
 				<font style="color:white">Next</font></a>    	</div>
-		<div id="save"><a href="http://localhost:8080/CSCI201-Trojan-Tumble/register.jsp" style="text-decoration:none">
+		<div id="save"><a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/register.jsp" style="text-decoration:none">
 				<font style="color:white">Save My Game</font></a>  </div>
 	</body>
 </html>

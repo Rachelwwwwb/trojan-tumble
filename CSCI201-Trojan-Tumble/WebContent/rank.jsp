@@ -206,14 +206,14 @@
 %>
 		</table>
 			<div id="play">
-				<a href="http://localhost:8080/CSCI201-Trojan-Tumble/game.jsp" style="text-decoration:none; color: white;">
+				<a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/game.jsp" style="text-decoration:none; color: white;">
 					PLAY </a>
 			</div>
 			<div id="profile" style="position: absolute; visibility: hidden;">
-				<a href="http://localhost:8080/CSCI201-Trojan-Tumble/profile.jsp" style="text-decoration:none; color: white;">
+				<a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/profile.jsp" style="text-decoration:none; color: white;">
 				Profile</a>        	</div>
 			<div id="store" style="position: absolute; visibility: hidden;">
-				<a href="http://localhost:8080/CSCI201-Trojan-Tumble/store.jsp" style="text-decoration:none; color: white;">
+				<a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/store.jsp" style="text-decoration:none; color: white;">
 				Store</a>        	</div>
 			<div class="container">
 			  <div class="red flame"></div>
