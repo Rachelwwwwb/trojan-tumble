@@ -151,11 +151,11 @@
 			<img id="trojan" src="assets/trojansprite.png">
 			<img id="smoke" src="assets/smoke.png"> 
 			<img id="fire" src="assets/fire.png"> 
-			<div id="playGuest"><a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/game.jsp" style="text-decoration:none">
+			<div id="playGuest"><a href="http://localhost:8080/CSCI201-Trojan-Tumble/game.jsp" style="text-decoration:none">
 				<h3>Play As Guest</h3></a></div> 
-			<div id="login"><a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/login.jsp" style="text-decoration:none">
+			<div id="login"><a href="http://localhost:8080/CSCI201-Trojan-Tumble/login.jsp" style="text-decoration:none">
 				<font style="color:white">Login</font></a>        	</div>
-			<div id="rank"><a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/rank.jsp" style="text-decoration:none">
+			<div id="rank"><a href="http://localhost:8080/CSCI201-Trojan-Tumble/rank.jsp" style="text-decoration:none">
 				<font style="color:white">Rank</font></a>        	</div>
 			<div class="container">
 			  <div class="red flame"></div>
