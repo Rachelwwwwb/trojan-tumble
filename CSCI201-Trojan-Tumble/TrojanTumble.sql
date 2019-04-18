@@ -1,4 +1,3 @@
-DROP DATABASE IF EXISTS game;
 CREATE DATABASE game;
 USE game;
 
@@ -32,7 +31,7 @@ INSERT INTO Player (username, password, coins, score, avatarID)
             ('TESLAMODELV', 'pw', 900, 9878, 4),
             ('HIGHERSCORE', 'pw', 1200, 8901, 1),
             ('SAMURAISISTER', 'pw', 575, 8674, 2),
-            ('BRUNCHCLUB', 'pw', 483, 8236, 3);
+            ('Jeffery Miller PhD', 'pw', 9999, 13123, 1);
     
 CREATE TABLE Ranking (
 	rankID INT(11) PRIMARY KEY AUTO_INCREMENT,

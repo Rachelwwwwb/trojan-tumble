@@ -32,8 +32,22 @@ public class TrojanTumble extends HttpServlet {
 			int coins = (int)session.getAttribute("coins");
 			int player = (int)session.getAttribute("player");
 			updateData(id, cost, coins, player, session);
+			session.setAttribute("avatar", id);
 			
 			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/profile.jsp");
+			dispatch.forward(request, response);
+			return;
+		}
+		else if(update!= null && update.equals("results")){
+			String coinCount = request.getParameter("coins");
+			int coins = Integer.parseInt(coinCount);
+			String scoreCount = request.getParameter("score");
+			int score = Integer.parseInt(scoreCount);
+			HttpSession session = request.getSession();
+			session.setAttribute("coinsCollected", coins);
+			session.setAttribute("gameScore", score);
+			
+			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/results.jsp");
 			dispatch.forward(request, response);
 			return;
 		}
@@ -60,7 +74,7 @@ public class TrojanTumble extends HttpServlet {
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/game?user=root&password=root");
+			conn = DriverManager.getConnection("jdbc:mysql://aagurobfnidxze.cesazkri7ef1.us-east-2.rds.amazonaws.com:3306/game?user=user&password=password");
 			ps = conn.prepareStatement("UPDATE Player SET coins=?, avatarID=? WHERE username=?");
 			ps.setInt(1, coins-cost);
 			ps.setInt(2, id);

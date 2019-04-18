@@ -1,6 +1,8 @@
 package tumble;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -59,24 +61,56 @@ public class Register extends HttpServlet {
 			dispatch.forward(request, response);
 			return;
 		}
-	
+		
+		//hashing the password here
+		String passwordToHash = servPW;
+        String generatedPassword = null;
+        try {
+            // Create MessageDigest instance for MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            //Add password bytes to digest
+            md.update(passwordToHash.getBytes());
+            //Get the hash's bytes
+            byte[] bytes = md.digest();
+            //This bytes[] has bytes in decimal format;
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            generatedPassword = sb.toString();
+            servPW = generatedPassword;
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
+		
+        
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		int score = 0;
 		int coins = 0;
-//		int temp = (int)session.getAttribute("score");
-//		int coins = (int)session.getAttribute("coins");
-//		if(temp) {
-//			score = temp;
-//		}
+		String played = (String)session.getAttribute("played");
+		
+		if(played != null) {
+			if(played.equals("true")) {
+				score = (int)session.getAttribute("gameScore");
+				coins = (int)session.getAttribute("coinsCollected");
+			}
+		}
+		
+		String jdbcUrl = "jdbc:mysql://aagurobfnidxze.cesazkri7ef1.us-east-2.rds.amazonaws.com:3306/game?user=user&password=password";					
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/game?user=root&password=root");
+			System.out.println("Driver loaded");
+			conn = DriverManager.getConnection(jdbcUrl);
 			ps = conn.prepareStatement("SELECT * FROM Player WHERE username=?");
 			ps.setString(1, servUsername);
 			rs = ps.executeQuery();
+			System.out.println("executed");
 			
 			boolean foundUser = false;
 			while(rs.next()) {	//iterate through all rows
@@ -120,9 +154,12 @@ public class Register extends HttpServlet {
 			session.setAttribute("user", user);
 			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/profile.jsp");
 			dispatch.forward(request, response);
-			return;
+			
+			//return;
 		}catch(SQLException sqle) {
+			System.out.println("sqle: " + sqle.getMessage());
 		}catch(ClassNotFoundException cnfe) {
+			System.out.println("cnfe: " + cnfe.getMessage());
 		}finally {
 			try {
 				if(rs != null) rs.close();

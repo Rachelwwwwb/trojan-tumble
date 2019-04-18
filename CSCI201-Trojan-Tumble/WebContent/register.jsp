@@ -169,7 +169,7 @@
 		</script>
 		</head>
 		<body>
-			<a href="http://localhost:8080/CSCI201-Trojan-Tumble/home.jsp" style="text-decoration:none"><img id="trojan" src="assets/trojansprite.png"></a>
+			<a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/home.jsp" style="text-decoration:none"><img id="trojan" src="assets/trojansprite.png"></a>
 			<div id="header">
 				<h1>Create Account</h1> 
 			</div>

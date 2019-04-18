@@ -175,7 +175,7 @@
 		</script>
 		</head>
 		<body>
-			<a href="http://localhost:8080/CSCI201-Trojan-Tumble/home.jsp" style="text-decoration:none"><img id="trojan" src="assets/trojansprite.png"></a>
+			<a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/home.jsp" style="text-decoration:none"><img id="trojan" src="assets/trojansprite.png"></a>
 			<div id="header">
 				<h1>Login</h1> 
 			</div>
@@ -190,7 +190,7 @@
 			  </form>
 			<div id="login" onclick="submitForm()">Login</div>
 			<img id="smoke" src="assets/smoke.png">  
-			<div id="createAcc"><a href="http://localhost:8080/CSCI201-Trojan-Tumble/register.jsp" style="text-decoration:none">
+			<div id="createAcc"><a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/register.jsp" style="text-decoration:none">
 				<font style="color:white">Create Account</font></a>        	</div>
 			<div class="container">
 			  <div class="red flame"></div>
