@@ -47,6 +47,50 @@ public class TrojanTumble extends HttpServlet {
 			session.setAttribute("coinsCollected", coins);
 			session.setAttribute("gameScore", score);
 			
+			String user = (String)session.getAttribute("user");
+			
+			Connection conn = null;
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			
+			int prevScore = 0;
+			
+			try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				conn = DriverManager.getConnection("jdbc:mysql://aagurobfnidxze.cesazkri7ef1.us-east-2.rds.amazonaws.com:3306/game?user=user&password=password");
+				
+				// get previous score
+				ps = conn.prepareStatement("SELECT p.score FROM Player p WHERE p.username=?");
+				ps.setString(1, user);
+				rs = ps.executeQuery();
+			
+				while(rs.next()){
+					prevScore = rs.getInt("score");
+				}
+				
+				session.setAttribute("prevScore", prevScore);
+				if(prevScore < score) {
+					ps = conn.prepareStatement("UPDATE Player SET score=? WHERE username=?");
+					ps.setInt(1, score);
+					ps.setString(2, user);
+					ps.execute();
+				}				
+			}catch(SQLException sqle) {
+				System.out.println("sqle results: " + sqle.getMessage());
+			}catch(ClassNotFoundException cnfe) {
+				System.out.println("cnfe results: " + cnfe.getMessage());
+			}finally {
+				try {
+					if(rs != null) rs.close();
+					if(ps != null) ps.close();
+					if(conn != null) conn.close();
+				}catch (SQLException sqle) {
+					System.out.println("Sqle: " + sqle.getMessage());
+				}
+			}
+			
+			
+			
 			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/results.jsp");
 			dispatch.forward(request, response);
 			return;

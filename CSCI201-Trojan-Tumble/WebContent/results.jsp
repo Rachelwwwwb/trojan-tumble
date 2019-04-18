@@ -176,6 +176,7 @@
 	String loggedIn = (String)session.getAttribute("loggedIn");
 	int gameScore = (int)session.getAttribute("gameScore"); 
 	int coinsCollected = (int)session.getAttribute("coinsCollected");
+	int prevScore = (int)session.getAttribute("prevScore");
 	String played = "true";
 	session.setAttribute("played", played);
 	int score = 0;
@@ -210,7 +211,7 @@
 			ps.setString(2, user);
 			ps.execute();
 			
-			if(gameScore > score){	//check ranking table
+			if(gameScore > prevScore){	//check ranking table
 				ps = conn.prepareStatement("SELECT p.playerID, p.score FROM Player p, Ranking r WHERE p.playerID=r.playerID ORDER BY p.score DESC");
 				rs = ps.executeQuery();
 				
@@ -302,35 +303,8 @@
 			}
 			function newHighScore(){
 				console.log("newHighScore");
-				console.log("scores: " + <%=gameScore %> + " " + <%=score %>);
-				if(<%=gameScore %> > <%=score %>){
-					//update database with new score
-					<%
-					Connection conn = null;
-					PreparedStatement ps = null;
-					ResultSet rs = null;
-					
-					try {
-						Class.forName("com.mysql.cj.jdbc.Driver");
-						conn = DriverManager.getConnection("jdbc:mysql://aagurobfnidxze.cesazkri7ef1.us-east-2.rds.amazonaws.com:3306/game?user=user&password=password");
-						ps = conn.prepareStatement("UPDATE Player SET score=? WHERE username=?");
-						ps.setInt(1, gameScore);
-						ps.setString(2, user);
-						ps.execute();
-					}catch(SQLException sqle) {
-						System.out.println("sqle results: " + sqle.getMessage());
-					}catch(ClassNotFoundException cnfe) {
-						System.out.println("cnfe results: " + cnfe.getMessage());
-					}finally {
-						try {
-							if(rs != null) rs.close();
-							if(ps != null) ps.close();
-							if(conn != null) conn.close();
-						}catch (SQLException sqle) {
-							System.out.println("Sqle: " + sqle.getMessage());
-						}
-					}
-					%>
+				console.log("scores: " + <%=gameScore %> + " " + <%=prevScore %>);
+				if(<%=gameScore %> > <%= prevScore %>){
 					//display confetti and message
 					document.getElementById("confetti").style.visibility = "visible";
 					document.getElementById("highScore").style.visibility = "visible";
@@ -359,11 +333,11 @@
 			  <div class="yellow flame"></div>
 		</div>
 		
-		<div id="store"><a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/store.jsp" style="text-decoration:none; visibility:hidden;">
+		<div id="store"><a href="http://localhost:8080/CSCI201-Trojan-Tumble/store.jsp" style="text-decoration:none; visibility:hidden;">
 				<font style="color:white">Store</font></a>        	</div>
-		<div id="next"><a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/rank.jsp" style="text-decoration:none">
+		<div id="next"><a href="http://localhost:8080/CSCI201-Trojan-Tumble/rank.jsp" style="text-decoration:none">
 				<font style="color:white">Next</font></a>    	</div>
-		<div id="save"><a href="http://trojan-tumble.us-east-2.elasticbeanstalk.com/register.jsp" style="text-decoration:none">
+		<div id="save"><a href="http://localhost:8080/CSCI201-Trojan-Tumble/register.jsp" style="text-decoration:none">
 				<font style="color:white">Save My Game</font></a>  </div>
 	</body>
 </html>

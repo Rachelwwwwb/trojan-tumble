@@ -282,7 +282,7 @@
 				var urlParams = new URLSearchParams(window.location.search);
 				urlParams.append('coins', coinCount);
 				urlParams.append('score', scoreCount);
-				var url = "http://trojan-tumble.us-east-2.elasticbeanstalk.com/TrojanTumble?update=results&" + urlParams;
+				var url = "http://localhost:8080/CSCI201-Trojan-Tumble/TrojanTumble?update=results&" + urlParams;
 				window.location.replace(url);
 				game.destroy();
 				return;
