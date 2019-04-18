@@ -14,6 +14,7 @@
 </head>
 <%
 	int avatar = (int)session.getAttribute("avatar");
+	//int avatar = 1;
 %>
 <body>
 
@@ -116,7 +117,12 @@
 		    this.physics.world.setBounds(0, 0, 1440, 900);
 		    
 		    //music
-		    music = this.sound.add('music');
+		    music = this.sound.add('music', {
+		    	
+		    	mute: false,
+		    	loop: true,
+		    	delay: 0
+		    });
 		    music.play();
 			
 			// Add platform group
