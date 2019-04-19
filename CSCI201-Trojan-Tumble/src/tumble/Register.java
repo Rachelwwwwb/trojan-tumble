@@ -144,6 +144,46 @@ public class Register extends HttpServlet {
 					player = dataID;
 				}
 			}
+			
+			// update ranking
+			ps = conn.prepareStatement("SELECT p.playerID, p.score FROM Player p, Ranking r WHERE p.playerID=r.playerID ORDER BY p.score DESC");
+			rs = ps.executeQuery();
+			
+			boolean onRanking = false;
+			
+			int[] scores = new int[10];
+			int[] players = new int[10];
+			int i=0;
+			while(rs.next()){
+				scores[i] = rs.getInt("score");
+				players[i] = rs.getInt("playerID");
+				if(players[i] == player){
+					onRanking = true;
+				}
+				i++;
+			}
+			int min = 0;
+			int j;
+			for(j=1; j<10; j++){
+				if(scores[j] < scores[min]){
+					min = j;
+				}
+			}
+			if(score > scores[min]){
+				if(!onRanking){
+					ps = conn.prepareStatement("UPDATE Ranking SET playerID=? WHERE playerID=?");
+					ps.setInt(1, player);
+					ps.setInt(2, players[min]);
+					ps.execute();
+				}
+				else{//update score
+					ps = conn.prepareStatement("UPDATE Ranking SET score=? WHERE playerID=?");
+					ps.setInt(1, score);
+					ps.setInt(2, player);
+					ps.execute();
+				}
+			}		
+			
 			ps = conn.prepareStatement("INSERT INTO Purchased(playerID,hasSoldier,hasViking,hasSamurai) VALUES(?,0,0,0)");
 			ps.setInt(1, player);
 			ps.execute();
