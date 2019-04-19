@@ -37,7 +37,8 @@ public class multiServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         
         
-        String currentID = request.getParameter("currentID");
+        String currID = request.getParameter("currentID");
+        int currentID = Integer.parseInt(currID);
         String start = request.getParameter("start");
         String name = request.getParameter("name");
 
@@ -67,8 +68,8 @@ public class multiServlet extends HttpServlet {
             //.conn.}
             //else {
                 ps = conn.prepareStatement("SELECT * FROM Threads WHERE threadID=?");
-    
-                ps.setString(1, currentID+1);
+                
+                ps.setInt(1, currentID+1);
                 rs = ps.executeQuery();
     
                 while(rs.next()) {    //if found any

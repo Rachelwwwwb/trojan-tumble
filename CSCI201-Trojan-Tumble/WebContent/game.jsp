@@ -314,14 +314,16 @@
 		
 		/* ---------- Update Game Status Every Frame ----------*/
 		function update ()
-		{	
-			ajaxGet(‘multiServlet?currentID=’+currentID,function(results){
-                if (results != lastOne && results != null && results != “null”){
-                    console.log(“results: “+ results);
-                    console.log(“lastone: “+ lastOne);
+		{
+			var username;
+			ajaxGet('multiServlet?currentID='+currentID,function(results){
+                if (results != lastOne && results != null && results != "null"){
+                	username = results;
+                    console.log("results: "+ results);
+                    console.log("lastone: "+ lastOne);
                     lastOne = results;
                     currentID++;
-
+					
                 }
             })
 			//start game
@@ -458,14 +460,14 @@
 		
 		function ajaxGet(endpointUrl, returnFunction){
             var xhr = new XMLHttpRequest();
-            xhr.open(‘GET’, endpointUrl, true);
+            xhr.open('GET', endpointUrl, true);
             xhr.onreadystatechange = function(){
                 if (xhr.readyState == XMLHttpRequest.DONE) {
                     if (xhr.status == 200) {
                         returnFunction( this.responseText );
 
                     } else {
-                        alert(‘AJAX Error.’);
+                        alert('AJAX Error.');
                         console.log(xhr.status);
                     }
                 }
