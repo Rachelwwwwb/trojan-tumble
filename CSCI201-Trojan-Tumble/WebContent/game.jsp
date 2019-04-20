@@ -14,10 +14,8 @@
     </style>
 </head>
 <%
-<<<<<<< HEAD
 	//int avatar = (int)session.getAttribute("avatar");
-	int avatar = 1;
-=======
+	//int avatar = 1;
 	int avatar = (int)session.getAttribute("avatar");
 	String loggedIn = (String)session.getAttribute("loggedIn");
 	String user = "GUEST";
@@ -61,7 +59,6 @@
 			System.out.println("sqle game finally: " + sqle.getMessage());
 		}
 	}
->>>>>>> 811f2f306b5029e241dd53535cdd118cbdb2c04c
 %>
 <body>
 
