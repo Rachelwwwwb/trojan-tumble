@@ -85,7 +85,7 @@
 		
 		var currentID = <%=currentID%>;
 		console.log("currentID: " + currentID);
-		var lastOne;
+		var myset = new Set();
 		
 		var game = new Phaser.Game(config);
 		
@@ -97,6 +97,9 @@
 		var start_count_go = 0;
 		var startText;
 		
+		var user_text_count = 0;
+		var displayUserText = false;
+		
 		var avatar  = <%=avatar%>;
 		var player;
 		var platforms;	
@@ -106,6 +109,7 @@
 		var coinText;
 		var scoreCount = 0;
 		var scoreText;
+		var userText;
 		var dungeon;
 		var coins, diamonds,rubys;
 		var lives = 5;
@@ -308,6 +312,9 @@
 		    
 		    // start text
 		    startText = this.add.text(500, 300, 'Ready', { fontSize: '150px', fill: 'rgb(255, 255, 255)' });
+		    
+		    // username text
+		    userText = this.add.text(16, 150, '', { fontSize: '32px', fill: 'rgb(255,255,255)' });
 		
 		    //  Collide the player and the coins with the platforms
 		    this.physics.add.collider(player, platforms);
@@ -329,7 +336,7 @@
 
 		    // Loop infinitely and add platforms
 		    var timer_plat = this.time.addEvent({ 
-		    	delay: 1000 / (1 + scoreCount * 0.00002), 
+		    	delay: 1000, 
 		    	callback: addPlatform, 
 		    	callbackScope: this, 
 		    	loop: true
@@ -346,13 +353,26 @@
 		/* ---------- Update Game Status Every Frame ----------*/
 		function update ()
 		{
+			if(displayUserText){
+				user_text_count++;
+			}
+			if(user_text_count >= 180){
+				userText.setText('');
+				user_text_count = 0;
+				displayUserText = false;
+			}
+			
 			var username;
 			ajaxGet('multiServlet?currentID='+currentID,function(results){
-                if (results != lastOne && results != null && results != "null"){
+                if (!myset.has(results) && results != null && results != "null"){
                 	username = results;
                     console.log("results: "+ results);
-                    console.log("lastone: "+ lastOne);
-                    lastOne = results;
+                    // set text
+        			userText.setText(username + ' just joined the game!');
+                    myset.add(results);
+                    
+                    displayUserText = true;
+                    
                     currentID++;
 					
                 }
@@ -368,6 +388,7 @@
 				start_count_ready++;
 				start_count_go++;
 			}
+						
 			// end game
 			if(gameOver){
 				this.physics.pause();
@@ -381,13 +402,15 @@
 				game.destroy();
 				return;
 			}
+			
+			
 			// Move background and platforms up
-			dungeon.tilePositionY += 2  * (1 + scoreCount * 0.00002);
-			platforms.setVelocityY(-125  * (1 + scoreCount * 0.00002));
-			traps.setVelocityY(-125  * (1 + scoreCount * 0.00002));
-			coins.setVelocityY(-125  * (1 + scoreCount * 0.00002));
-			diamonds.setVelocityY(-125  * (1 + scoreCount * 0.00002));
-			rubys.setVelocityY(-125  * (1 + scoreCount * 0.00002));
+			dungeon.tilePositionY += 2;
+			platforms.setVelocityY(-125);
+			traps.setVelocityY(-125);
+			coins.setVelocityY(-125);
+			diamonds.setVelocityY(-125);
+			rubys.setVelocityY(-125);
 
 			
 			//  Add and update the scores
@@ -508,7 +531,6 @@
                         returnFunction( this.responseText );
 
                     } else {
-                        alert('AJAX Error.');
                         console.log(xhr.status);
                     }
                 }
@@ -623,7 +645,7 @@
 				tile.active = true;
 			    //Reset it to the specified coordinates
 			    tile.enableBody(true, x, y);
-			    tile.body.velocity.y = -125 * (1 + scoreCount * 0.00002); 
+			    tile.body.velocity.y = -125; 
 			    tile.body.immovable = true;
 			}
 
@@ -649,7 +671,7 @@
 		    
 		    for (var i = 0; i < tilesNeeded; i++){
 		    	//randomly skip first part or last part
-		    	var skip_factor = Math.random()  * (1 + scoreCount * 0.00002);
+		    	var skip_factor = Math.random();
 		    	if(skip_factor < 0.1 && !skipped && (curr_len == 0 || curr_len > 5)){
 		    		break;
 		    	}
@@ -679,7 +701,7 @@
 				var tile = coins.getFirstDead();
 				if(tile != null){
 					tile.active = true;
-					tile.body.velocity.y = -125  * (1 + scoreCount * 0.00002); 
+					tile.body.velocity.y = -125; 
 				    tile.body.immovable = true;
 					tile.enableBody(true, Math.random() * 1440, 900, true, true);
 				}
@@ -693,7 +715,7 @@
 				var tile = diamonds.getFirstDead();
 				if(tile != null){
 					tile.active = true;
-					tile.body.velocity.y = -125  * (1 + scoreCount * 0.00002); 
+					tile.body.velocity.y = -125; 
 				    tile.body.immovable = true;
 					tile.enableBody(true, Math.random() * 1440, 900, true, true);
 				}
@@ -706,7 +728,7 @@
 				var tile = rubys.getFirstDead();
 				if(tile != null){
 					tile.active = true;
-					tile.body.velocity.y = -125  * (1 + scoreCount * 0.00002); 
+					tile.body.velocity.y = -125; 
 				    tile.body.immovable = true;
 					tile.enableBody(true, Math.random() * 1440, 900, true, true);
 				}
