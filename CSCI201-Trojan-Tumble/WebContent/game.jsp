@@ -13,8 +13,8 @@
     </style>
 </head>
 <%
-	int avatar = (int)session.getAttribute("avatar");
-	//int avatar = 1;
+	//int avatar = (int)session.getAttribute("avatar");
+	int avatar = 1;
 %>
 <body>
 
@@ -51,7 +51,8 @@
 		
 		var avatar  = <%=avatar%>;
 		var player;
-		var platforms;		
+		var platforms;	
+		var traps;
 		var cursors;
 		var coinCount = 0;		
 		var coinText;
@@ -66,6 +67,7 @@
 		var heart4;
 		var heart5;
 		var firstTime = true;
+		var firstTimeTrap = true;
 		/* ---------- End Global Variables ----------*/
 		
 		
@@ -76,6 +78,7 @@
 		{
 		    this.load.image('dungeon', 'assets/dungeon.png');
 		    this.load.image('ground', 'assets/ground2.png');
+		    this.load.image('trap', 'assets/ice.png');
 		    this.load.image('coin', 'assets/goldcoin.png');
 		    this.load.image('purple_diamond', 'assets/purple_diamond.png')
 			this.load.image('heart','assets/heart.png');
@@ -140,6 +143,26 @@
 		        child.active = false;
 		
 		    });
+		    
+		 	// Add trap group
+		    traps = this.physics.add.group({
+		    	key: 'trap',
+		    	repeat: 10,
+		    	setScale: { x: 0.4, y: 0.3}
+		    });
+		    traps.enableBody = true;
+			
+		    // Initialize platform child
+		    traps.children.iterate(function (child) {
+				
+		        child.body.immovable = true;
+		        child.active = false;
+		
+		    });
+		   
+		    
+		    
+		    
 		    
 		    //initalize hearts
 		    heart1 = this.add.image(40, 120, 'heart').setScale(0.35);
@@ -243,7 +266,13 @@
 		    this.physics.add.collider(coins, platforms);
 		    this.physics.add.collider(diamonds, platforms);
 		    this.physics.add.collider(rubys, platforms);
-
+		    
+		    
+		    this.physics.add.collider(player, traps, loseLiveTrap, null, this);
+		    this.physics.add.collider(coins, traps);
+		    this.physics.add.collider(diamonds, traps);
+		    this.physics.add.collider(rubys, traps);
+			
 		
 		    //  Checks to see if the player overlaps with any of the coins, if he does call the collectCoin function
 		    this.physics.add.overlap(player, coins, collectCoin, null, this);
@@ -252,7 +281,7 @@
 
 		    // Loop infinitely and add platforms
 		    var timer_plat = this.time.addEvent({ 
-		    	delay: 1000, 
+		    	delay: 1000 / (1 + scoreCount * 0.00002), 
 		    	callback: addPlatform, 
 		    	callbackScope: this, 
 		    	loop: true
@@ -294,11 +323,12 @@
 				return;
 			}
 			// Move background and platforms up
-			dungeon.tilePositionY += 2;
-			platforms.setVelocityY(-125);
-			coins.setVelocityY(-125);
-			diamonds.setVelocityY(-125);
-			rubys.setVelocityY(-125);
+			dungeon.tilePositionY += 2  * (1 + scoreCount * 0.00002);
+			platforms.setVelocityY(-125  * (1 + scoreCount * 0.00002));
+			traps.setVelocityY(-125  * (1 + scoreCount * 0.00002));
+			coins.setVelocityY(-125  * (1 + scoreCount * 0.00002));
+			diamonds.setVelocityY(-125  * (1 + scoreCount * 0.00002));
+			rubys.setVelocityY(-125  * (1 + scoreCount * 0.00002));
 
 			
 			//  Add and update the scores
@@ -311,6 +341,15 @@
 		            platforms.kill(child);
 		        }
 		    });
+			
+			
+			// kill traps that are out of bounds
+			traps.children.iterate(function (child) {
+		        if (child.y <= 0) {
+		            traps.kill(child);
+		        }
+		    });
+			
 			
 			// kill coins out of bound
 			coins.children.iterate(function (child) {
@@ -439,6 +478,42 @@
  			lives--;
 		} 
  		
+ 		function loseLiveTrap ()
+ 		{	
+ 			camera.main.shake(500, 0.01);
+ 			if (lives <= 1){
+ 				heart1.alpha = 0;
+ 				gameOver = true;
+ 			}
+ 			else if (lives == 2){
+ 				heart2.alpha = 0;
+ 			}
+ 			else if (lives == 3){
+ 				heart3.alpha = 0;
+ 			}
+ 			else if (lives == 4){
+ 				heart4.alpha = 0;
+ 			}
+ 			else if (lives == 5){
+ 				heart5.alpha = 0;
+ 			}
+ 			lives--;
+ 			
+ 			if(player.x < 720){
+ 				player.x += 50;
+ 			}
+ 			else{
+ 				player.x -= 50;
+ 			}
+ 			
+ 			if(player.y > 450){
+ 				player.y -= 100;
+ 			}
+ 			else{
+ 				player.y += 100;
+ 			}
+		} 
+ 		
  		function addLive(){
  			if (lives == 1){
  				heart2.alpha = 1;
@@ -459,14 +534,20 @@
  		}
 		
 		function addTile(x, y){
-			//Get a tile that is not currently on screen
-			var tile = platforms.getFirstDead();
+			var tile;
+			var makeTrap = Math.floor(Math.random() * 50);
+			if(makeTrap == 7){
+				tile = traps.getFirstDead();
+			}
+			else{
+				tile = platforms.getFirstDead();
+			}
 			
 			if(tile != null){
 				tile.active = true;
 			    //Reset it to the specified coordinates
 			    tile.enableBody(true, x, y);
-			    tile.body.velocity.y = -125; 
+			    tile.body.velocity.y = -125 * (1 + scoreCount * 0.00002); 
 			    tile.body.immovable = true;
 			}
 
@@ -492,7 +573,7 @@
 		    
 		    for (var i = 0; i < tilesNeeded; i++){
 		    	//randomly skip first part or last part
-		    	var skip_factor = Math.random();
+		    	var skip_factor = Math.random()  * (1 + scoreCount * 0.00002);
 		    	if(skip_factor < 0.1 && !skipped && (curr_len == 0 || curr_len > 5)){
 		    		break;
 		    	}
@@ -503,7 +584,7 @@
 		    	
 		    	
 		    	//randomly add holes
-		    	var hole_length = Math.floor(Math.random() * 3 + 1);
+		    	var hole_length = Math.floor(Math.random() * 3 + 3);
 		    	var make_hole = Math.ceil(Math.random() * 5);
 		    	if(make_hole == 3 && curr_len > 5){
 		    		i+= hole_length;
@@ -522,7 +603,7 @@
 				var tile = coins.getFirstDead();
 				if(tile != null){
 					tile.active = true;
-					tile.body.velocity.y = -125; 
+					tile.body.velocity.y = -125  * (1 + scoreCount * 0.00002); 
 				    tile.body.immovable = true;
 					tile.enableBody(true, Math.random() * 1440, 900, true, true);
 				}
@@ -536,7 +617,7 @@
 				var tile = diamonds.getFirstDead();
 				if(tile != null){
 					tile.active = true;
-					tile.body.velocity.y = -125; 
+					tile.body.velocity.y = -125  * (1 + scoreCount * 0.00002); 
 				    tile.body.immovable = true;
 					tile.enableBody(true, Math.random() * 1440, 900, true, true);
 				}
@@ -549,7 +630,7 @@
 				var tile = rubys.getFirstDead();
 				if(tile != null){
 					tile.active = true;
-					tile.body.velocity.y = -125; 
+					tile.body.velocity.y = -125  * (1 + scoreCount * 0.00002); 
 				    tile.body.immovable = true;
 					tile.enableBody(true, Math.random() * 1440, 900, true, true);
 				}
