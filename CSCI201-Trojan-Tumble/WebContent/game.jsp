@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.io.IOException" import="java.sql.Connection" import="java.sql.DriverManager"
+	import="java.sql.PreparedStatement" import="java.sql.ResultSet" import="java.sql.SQLException"%>
 <!DOCTYPE html>
 <html lang="en"> 
 <head> 
@@ -13,8 +14,54 @@
     </style>
 </head>
 <%
+<<<<<<< HEAD
 	//int avatar = (int)session.getAttribute("avatar");
 	int avatar = 1;
+=======
+	int avatar = (int)session.getAttribute("avatar");
+	String loggedIn = (String)session.getAttribute("loggedIn");
+	String user = "GUEST";
+	if(loggedIn.equals("true")){
+		user = (String)session.getAttribute("user"); 
+		user = user.toUpperCase();
+	}
+	int currentID = 0;
+	Connection conn = null;
+	PreparedStatement ps = null;
+	ResultSet rs = null;
+	
+	String jdbcUrl = "jdbc:mysql://aagurobfnidxze.cesazkri7ef1.us-east-2.rds.amazonaws.com:3306/game?user=user&password=password";					
+	
+	try {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		System.out.println("Driver loaded");
+		conn = DriverManager.getConnection(jdbcUrl);
+
+		ps = conn.prepareStatement("INSERT INTO Threads(username) VALUES(?)");
+		ps.setString(1, user);
+		ps.execute();
+		
+		ps = conn.prepareStatement("SELECT COUNT(threadID) FROM Threads");
+		rs = ps.executeQuery();
+		
+		while(rs.next()){
+			currentID = rs.getInt("COUNT(threadID)");
+		}
+		
+	}catch(SQLException sqle) {
+		System.out.println("sqle game: " + sqle.getMessage());
+	}catch(ClassNotFoundException cnfe) {
+		System.out.println("cnfe game: " + cnfe.getMessage());
+	}finally {
+		try {
+			if(rs != null) rs.close();
+			if(ps != null) ps.close();
+			if(conn != null) conn.close();
+		}catch (SQLException sqle) {
+			System.out.println("sqle game finally: " + sqle.getMessage());
+		}
+	}
+>>>>>>> 811f2f306b5029e241dd53535cdd118cbdb2c04c
 %>
 <body>
 
@@ -38,6 +85,10 @@
 		        update: update
 		    }
 		};
+		
+		var currentID = <%=currentID%>;
+		console.log("currentID: " + currentID);
+		var lastOne;
 		
 		var game = new Phaser.Game(config);
 		
@@ -297,7 +348,18 @@
 		
 		/* ---------- Update Game Status Every Frame ----------*/
 		function update ()
-		{	
+		{
+			var username;
+			ajaxGet('multiServlet?currentID='+currentID,function(results){
+                if (results != lastOne && results != null && results != "null"){
+                	username = results;
+                    console.log("results: "+ results);
+                    console.log("lastone: "+ lastOne);
+                    lastOne = results;
+                    currentID++;
+					
+                }
+            })
 			//start game
 			if(start_count_ready == 120 && start_count_go <= 180){
 				startText.setText('Go!');
@@ -439,6 +501,23 @@
 		    coinCount += 1;
 		    coinText.setText('Coins: ' + coinCount);
 		}
+		
+		function ajaxGet(endpointUrl, returnFunction){
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', endpointUrl, true);
+            xhr.onreadystatechange = function(){
+                if (xhr.readyState == XMLHttpRequest.DONE) {
+                    if (xhr.status == 200) {
+                        returnFunction( this.responseText );
+
+                    } else {
+                        alert('AJAX Error.');
+                        console.log(xhr.status);
+                    }
+                }
+            }
+            xhr.send();
+        };
 		
 		function collectDiamond (player, diamond)
 		{
